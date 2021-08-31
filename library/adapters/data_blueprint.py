@@ -10,6 +10,6 @@ reader = BooksJSONReader(books_filename, authors_filename)
 reader.read_json_files()
 array = reader.dataset_of_books
 
-@data.route('/', methods=["GET"])
+@data.route('/books')
 def home():
     return render_template('home.html', array=array)
