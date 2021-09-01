@@ -12,4 +12,4 @@ array = reader.dataset_of_books
 
 @data.route('/books')
 def home():
-    return render_template('home.html', array=array)
+    return "book"

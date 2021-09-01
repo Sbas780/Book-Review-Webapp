@@ -9,6 +9,6 @@ def create_app():
 
     @app.route('/')
     def home():
-        return render_template('layout.html')
+        return render_template('home.html')
     app.register_blueprint(data)
     return app

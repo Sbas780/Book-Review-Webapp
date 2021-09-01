@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Book Browser</title>
-</head>
-<body>
-    {% for item in array %}
-    <li><p>{{item.title}}</p>
-    {% endfor %}
-
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content %}
+<div class="search">
+<form class="example" action="simple_book.html" style="margin:auto;max-width:300px;bootom:50%">
+  <input type="text" placeholder="Search.." name="search2">
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+</div>
+{% endblock %}
