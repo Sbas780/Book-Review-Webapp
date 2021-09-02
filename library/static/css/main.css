@@ -3,6 +3,16 @@
   background: #EAE7DC
 
 }
+.text{
+ color: #D7D8C9;
+ background: #57523E
+}
+.maintitle{
+    text-align: center;
+    color: #D94C1A;
+    left: 50%;
+    bottom: 35%;
+}
 .footer {
   display: flex;
   position: fixed;
@@ -10,7 +20,7 @@
   bottom: 0;
   width: 100%;
   height: 45px;
-  background-color: black;
+  background-color: #57523E;
   color: black;
   justify-content: center;
   align-items: center;
@@ -23,13 +33,13 @@
 .search {
   width: 600px;
   margin: 150px auto;
-  background: white;
+  background: #f7f7f2;
   border-radius: 3px;
-  border: 1px solid #fff;
+  border: 0px solid #fff;
   top: 35px;
+
 }
 input {
-
     width: 477px;
     padding: 11px 10px;
     float: left;
@@ -37,7 +47,7 @@ input {
     border: 0;
     border-radius: 0px 0 0 0px;
     outline: 0;
-    background:#CCC;
+    background: #f7f7f2;
 }
 button {
     position: relative;
@@ -47,14 +57,15 @@ button {
     cursor: pointer;
     height: 37px;
     width: 120px;
-    color: white;
-    background: grey;
+    color: #57523E;
+    background: #F2BE24;
     border-left: 0px solid #fff;
     border-radius: 0 0px 0px 0;
 
 }
 button:hover{
     background: #D94C1A;
+    color: #f7f7f2;
 }
 button:active{
      box-shadow: 0px 0px 12px 0px #D94C1A;
