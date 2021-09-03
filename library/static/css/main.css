@@ -4,14 +4,16 @@
 
 }
 .text{
- color: #D7D8C9;
- background: #57523E
+    position: relative;
+    color: #D7D8C9;
+    background: #57523E
+    top: 25%;
 }
 .maintitle{
+    position: flex;
     text-align: center;
     color: #D94C1A;
-    left: 50%;
-    bottom: 35%;
+    top: 35%;
 }
 .footer {
   display: flex;
