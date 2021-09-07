@@ -22,10 +22,11 @@ def home():
 @data.route('/results')
 def find(search):
     num = search.data['search']
-    if num == "11":
-        return "Yes"
+    if num == "":
+        flash('Enter something here')
+        return render_template('home.html', form=search)
     else:
-        return "No"
+        return "Yes"
 
 
 class SearchForm(Form):
