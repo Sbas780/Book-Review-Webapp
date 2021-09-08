@@ -1,8 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
-  <h1 class="maintitle">LIBRARY</h1>
+<h1 class="maintitle">LIBRARY</h1>
 <div class="home_search">
 {% include 'find_book.html' %}
+</div>
+<div class="logo">
+    {% include 'logo.html' %}
 </div>
 <div class="search_flash">
 {% for mesg in get_flashed_messages() %}

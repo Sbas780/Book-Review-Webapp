@@ -7,12 +7,11 @@
     position: relative;
     color: #D7D8C9;
     background-color: #57523E;
-
 }
 .maintitle{
     text-align: center;
     color: #D94C1A;
-
+    transform: translate(0%, 210%);
 }
 h1{
 font-size: 90px;
@@ -35,6 +34,7 @@ font-size: 90px;
 	justify-content: center;
 	align-items: center;
 	margin-top: 0px;
+	transform: translate(0%, 560%);
 
 }
 .search_input{
@@ -44,6 +44,7 @@ font-size: 90px;
     padding: 11px 9px;
     border: 0px;
     cursor: pointer;
+
 
 }
 .button{
@@ -67,6 +68,13 @@ font-size: 90px;
 .search_flash{
     color: #D94C1A;
 
+}
+.logo{
+    display: flex;
+    justify-content: center;
+	align-items: center;
+    transform: translate(0%, -90%);
+	margin-bottom: 0px;
 }
 
 
