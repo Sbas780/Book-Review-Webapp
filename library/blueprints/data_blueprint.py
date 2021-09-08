@@ -26,15 +26,15 @@ def find(search):
         flash('Enter something here')
         return redirect('home')
     else:
-        results = []
+        results = [43242]
         for book in array:
-            if book.book_id == num:
+            if book.book_id == int(num):
                 results.append(num)
-        return results_page(array)
+        return results_page(results)
 
 @data.route('/results')
 def results_page(arr):
-    return render_template('results.html', )
+    return render_template('results.html', books=arr)
 
 class SearchForm(Form):
     search = StringField('BookID')

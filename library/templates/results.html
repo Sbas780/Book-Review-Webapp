@@ -1,1 +1,7 @@
 {% extends 'layout.html' %}
+{% block content %}
+<p> _ results </p>
+{% for items in books %}
+    <p>{{items}}</p>
+{% endfor %}
+{% endblock %}
