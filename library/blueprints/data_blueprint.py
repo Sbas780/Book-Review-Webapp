@@ -13,21 +13,28 @@ reader.read_json_files()
 array = reader.dataset_of_books
 
 @data.route('/', methods=['GET', 'POST'])
+@data.route('/home', methods=['GET', 'POST'])
 def home():
     search = SearchForm(request.form)
     if request.method == 'POST':
         return find(search)
     return render_template('home.html', form=search)
 
-@data.route('/results')
 def find(search):
     num = search.data['search']
     if num == "":
         flash('Enter something here')
-        return render_template('home.html', form=search)
+        return redirect('home')
     else:
-        return "Yes"
+        results = []
+        for book in array:
+            if book.book_id == num:
+                results.append(num)
+        return results_page(array)
 
+@data.route('/results')
+def results_page(arr):
+    return render_template('results.html', )
 
 class SearchForm(Form):
     search = StringField('BookID')

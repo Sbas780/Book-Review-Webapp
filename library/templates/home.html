@@ -4,4 +4,9 @@
 <div class="home_search">
 {% include 'find_book.html' %}
 </div>
+<div class="search_flash">
+{% for mesg in get_flashed_messages() %}
+      <p>{{ mesg }}</p>
+      {% endfor %}
+    </div>
 {% endblock %}
