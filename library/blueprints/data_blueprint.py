@@ -36,5 +36,8 @@ def find(search):
 def results_page(arr):
     return render_template('results.html', books=arr, size=len(arr))
 
+@data.route('/books')
+def books():
+    return render_template('simple_book.html', books=array)
 class SearchForm(Form):
     search = StringField('BookID')

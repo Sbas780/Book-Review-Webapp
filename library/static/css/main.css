@@ -2,11 +2,15 @@
   box-sizing: border-box;
   background-color: #EAE7DC;
   font-family: Monaco, Monospace;
+
 }
 .text{
     position: relative;
     color: #D7D8C9;
     background-color: #57523E;
+}
+body{
+    min-height: 100vh;
 }
 .maintitle{
     text-align: center;
@@ -16,7 +20,7 @@
 h1{
 font-size: 90px;
 }
-.footer {
+footer {
   display: flex;
   position: fixed;
   left: 0;
@@ -28,6 +32,9 @@ font-size: 90px;
   justify-content: center;
   align-items: center;
   color: white;
+  margin-top: auto;
+
+
 }
 .home_search{
 	display: flex;
@@ -38,12 +45,12 @@ font-size: 90px;
 
 }
 .search_input{
-
     background-color: #F7F7F2;
-    width: 400px;
+    width: 500px;
     padding: 11px 9px;
     border: 0px;
     cursor: pointer;
+    margin: auto;
 
 
 }
@@ -67,14 +74,20 @@ font-size: 90px;
 }
 .search_flash{
     color: #D94C1A;
-
+    text-align: center;
+    padding-bottom: 0px;
 }
 .logo{
+
     display: flex;
     justify-content: center;
 	align-items: center;
     transform: translate(0%, -90%);
 	margin-bottom: 0px;
 }
+.hypertext{
+    text-align: center;
+    transform: translate(0%, 300%);
 
+}
 

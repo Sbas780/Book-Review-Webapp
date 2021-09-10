@@ -12,4 +12,8 @@
       <p>{{ mesg }}</p>
       {% endfor %}
     </div>
+<div class="hypertext ul">
+    <a href="{{ url_for('data.books')}}" class="books">Browse by Books</a>
+    <a href="{{ url_for('data.books')}}" class="author">Browse by Authors</a>
+</div>
 {% endblock %}
