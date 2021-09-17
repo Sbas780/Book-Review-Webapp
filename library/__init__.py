@@ -1,13 +1,27 @@
 """Initialize Flask app."""
+from pathlib import Path
+from flask import Flask
+import library.adapters.repository as repo
+from library.adapters.memory_repository import MemoryRepository, populate
 
-from flask import Flask, render_template
 
-import config
-from library.blueprints.data_blueprint import data
+def create_app(test_config=None):
 
-
-def create_app():
     app = Flask(__name__)
+
     app.config.from_object("config.Config")
-    app.register_blueprint(data)
+
+    data_path = Path('library') / 'adapters' / 'data'
+
+    if test_config is not None:
+        app.config.from_mapping(test_config)
+        data_path = app.config['TEST_DATA_PATH']
+
+    repo.repo_instance = MemoryRepository()
+    populate(data_path, repo.repo_instance)
+
+    with app.app_context():
+        from .home import home_bp
+        app.register_blueprint(home_bp.home_blueprint)
+
     return app
