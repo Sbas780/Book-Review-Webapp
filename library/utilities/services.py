@@ -6,6 +6,9 @@ def get_books(repo: AbstractRepository):
     return books
 
 def get_number_of_books(repo: AbstractRepository):
-    number_of_boooks = repo.get_number_of_books()
-    return number_of_boooks
+    number_of_books = repo.get_number_of_books()
+    return number_of_books
 
+def get_authors_list(repo: AbstractRepository):
+    authors = repo.get_authors()
+    return authors

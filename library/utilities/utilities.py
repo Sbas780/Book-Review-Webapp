@@ -8,3 +8,7 @@ def get_list_of_books():
 def get_number_of_books():
     number_of_books = services.get_number_of_books(repo.repo_instance)
     return number_of_books
+
+def get_authors():
+    authors = services.get_authors_list(repo.repo_instance)
+    return authors

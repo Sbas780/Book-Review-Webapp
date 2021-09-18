@@ -9,12 +9,12 @@ search_bp = Blueprint('search_bp', __name__)
 
 @search_bp.route('/search', methods=['GET', 'POST'])
 def search():
-    form = SearchForm(request.args, meta={'cgsrf': False})
+    form = SearchForm(request.args, meta={'csrf': False})
     if search == 'POST':
         redirect('search')
     # query = request.args.get('search', '')
     # results = search_for_items(query)
-    return render_template('search.html', form=form)
+    return render_template('search_bar.html', form=form)
 
 
 

@@ -27,4 +27,7 @@ def create_app(test_config=None):
         from .search import search
         app.register_blueprint(search.search_bp)
 
+        from .browser import browser_bp
+        app.register_blueprint(browser_bp.browser_bp)
+
     return app

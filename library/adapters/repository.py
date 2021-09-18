@@ -22,7 +22,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_authors(self):
+    def get_authors(self) -> list[Author]:
         raise NotImplementedError
 
     @abc.abstractmethod
