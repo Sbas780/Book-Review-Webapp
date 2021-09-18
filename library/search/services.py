@@ -3,7 +3,7 @@ import library.utilities.utilities as utils
 
 def search_for_items(user_input: str):
     book_results = []
-    author_results = []
+
     books = utils.get_list_of_books()
     authors = utils.get_authors()
 
@@ -17,10 +17,10 @@ def search_for_items(user_input: str):
 
     for author in authors:
         if user_input in str(author.unique_id):
-            if author not in author_results:
-                author_results.append(author)
+            if author not in books:
+                books.append(author)
         if user_input in author.full_name:
-            if author not in author_results:
-                author_results.append(author)
+            if author not in books:
+                author.append(author)
 
-    return book_results, author_results
+    return book_results, author

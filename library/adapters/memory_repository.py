@@ -9,6 +9,7 @@ class MemoryRepository(AbstractRepository):
     def __init__(self):
         self.__books = list()
         self.__authors = list()
+        self.__users = list()
 
     def get_books(self) -> list[Book]:
         return self.__books
@@ -24,6 +25,15 @@ class MemoryRepository(AbstractRepository):
 
     def get_number_of_books(self) -> int:
         return len(self.__books)
+
+    def get_users(self) -> list[User]:
+        return self.__users
+
+    def add_user(self, user: User):
+        self.__users.append(user)
+
+    def get_user(self, user_name: User):
+        return next((user for user in self.__users if user.user_name == user_name), None)
 
 def load_books(data_path: Path, repo: MemoryRepository):
     authors = str(data_path / 'book_authors_excerpt.json')
