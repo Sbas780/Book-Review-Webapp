@@ -1,11 +1,14 @@
 from pathlib import Path
 from library.adapters.repository import AbstractRepository, RepositoryException
 from library.domain.model import *
+from library.adapters.jsondatareader import BooksJSONReader
+
 
 class MemoryRepository(AbstractRepository):
 
     def __init__(self):
         self.__books = list()
+        self.__authors = list()
 
     def get_books(self) -> list[Book]:
         return self.__books
@@ -13,13 +16,30 @@ class MemoryRepository(AbstractRepository):
     def add_book(self, book: Book):
         self.__books.append(book)
 
-book1 = Book(1234, "Book1")
-book2 = Book(5678, "Book2")
+    def get_authors(self):
+        return self.__authors
 
-def load_books(repo: MemoryRepository):
-    repo.add_book(book1)
-    repo.add_book(book2)
+    def add_author(self, author: Author):
+        self.__authors.append(author)
+
+    def get_number_of_books(self) -> int:
+        return len(self.__books)
+
+def load_books(data_path: Path, repo: MemoryRepository):
+    authors = str( data_path / 'book_authors_excerpt.json')
+    comic_books = str(data_path / 'comic_books_excerpt.json')
+    reader_instance = BooksJSONReader(comic_books, authors)
+    reader_instance.read_json_files()
+    for book in reader_instance.dataset_of_books:
+        repo.add_book(book)
+
+def load_authors(data_path: Path, repo: AbstractRepository):
+    authors_file = str(data_path / 'book_authors_excerpt.json')
+    file = open(authors_file)
+    authors_file_content=  file.readlines()
+    
+
 
 
 def populate(data_path: Path, repo: MemoryRepository):
-    load_books(repo)
+    load_books(data_path, repo)

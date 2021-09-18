@@ -24,4 +24,7 @@ def create_app(test_config=None):
         from .home import home_bp
         app.register_blueprint(home_bp.home_blueprint)
 
+        from .search import search
+        app.register_blueprint(search.search_bp)
+
     return app

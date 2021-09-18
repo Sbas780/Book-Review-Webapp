@@ -1,0 +1,5 @@
+<form class="ui" action="{{ url_for('search_bp.search') }}">
+    {{ form.csrf_token }}
+    {{ form.search(placeholder="Search...") }}
+    {{ form.submit(class="ui button") }}
+</form>
