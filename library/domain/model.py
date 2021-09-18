@@ -114,7 +114,7 @@ class Book:
         self.__publisher = None
         self.__authors = []
         self.__release_year = None
-        self.__ebook = None
+        self.__ebook = False
         self.__num_pages = None
 
 

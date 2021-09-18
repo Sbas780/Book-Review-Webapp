@@ -4,9 +4,13 @@
 {% for book in book_list %}
 <h1>{{ book.title }}</h1>
 <h2>{{ book.book_id }}</h2>
+{% if book.ebook == False %}
+<p>Ebook: False</p>
+{% else %}
+<p>Ebook: True</p>
+{% endif %}
 {% for i in book.authors %}
 <p>{{ i.full_name }}</p>
 {% endfor %}
-<p>{{ book.description }}</p>
 {% endfor %}
 {% endblock %}

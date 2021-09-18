@@ -10,10 +10,12 @@ search_bp = Blueprint('search_bp', __name__)
 @search_bp.route('/search', methods=['GET', 'POST'])
 def search():
     form = SearchForm(request.args, meta={'csrf': False})
+    books = utils.get_list_of_books()
     if search == 'POST':
-        redirect('search')
+
+        return render_template('search.html', form=form, book_list=books)
     query = request.args.get('search', '')
-    books, authors = search_for_items(query)
+    books = search_for_items(query)
     return render_template('search.html', form=form, book_list=books)
 
 
