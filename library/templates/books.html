@@ -3,6 +3,10 @@
 <h1>Books</h1>
 {% for book in book_list %}
 <h1>{{ book.title }}</h1>
+<h2>{{ book.book_id }}</h2>
+{% for i in book.authors %}
+<p>{{ i.full_name }}</p>
+{% endfor %}
 <p>{{ book.description }}</p>
 {% endfor %}
 {% endblock %}

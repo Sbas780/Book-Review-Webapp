@@ -12,9 +12,9 @@ def search():
     form = SearchForm(request.args, meta={'csrf': False})
     if search == 'POST':
         redirect('search')
-    # query = request.args.get('search', '')
-    # results = search_for_items(query)
-    return render_template('search_bar.html', form=form)
+    query = request.args.get('search', '')
+    books, authors = search_for_items(query)
+    return render_template('search.html', form=form, book_list=books)
 
 
 
