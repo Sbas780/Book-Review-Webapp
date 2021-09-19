@@ -12,3 +12,12 @@ def get_number_of_books(repo: AbstractRepository):
 def get_authors_list(repo: AbstractRepository):
     authors = repo.get_authors()
     return authors
+
+def set_search_results(repo: AbstractRepository, search_results: []):
+    repo.set_search_results(search_results)
+
+def get_search_results(repo: AbstractRepository):
+    return repo.get_search_results()
+
+def clear_search_results(repo: AbstractRepository):
+    repo.clear_search_results()

@@ -10,6 +10,7 @@ class MemoryRepository(AbstractRepository):
         self.__books = list()
         self.__authors = list()
         self.__users = list()
+        self.__search_results = list()
 
     def get_books(self) -> list[Book]:
         return self.__books
@@ -40,6 +41,15 @@ class MemoryRepository(AbstractRepository):
             if author in book.authors:
                 return True
         return False
+
+    def get_search_results(self):
+        return self.__search_results
+
+    def set_search_results(self, array):
+        self.__search_results = array
+
+    def clear_search_results(self):
+        self.__search_results = []
 
 def load_books(data_path: Path, repo: MemoryRepository):
     authors = str(data_path / 'book_authors_excerpt.json')

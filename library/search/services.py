@@ -16,5 +16,5 @@ def search_for_items(user_input: str):
             if book not in book_results:
                 book_results.append(book)
 
-
+    utils.set_search_results(book_results)
     return book_results

@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
-<form action="{{ url_for('browser_bp.browse_something') }}">
+<form action="{{ url_for('browser_bp.browse_books') }}">
     {{ form.sort.label }}
     {{ form.sort(class="dropdown") }}
     {{ form.submit}}

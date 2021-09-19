@@ -3,5 +3,9 @@
   background-color: #EAE7DC;
   font-family: Monaco, Monospace;
 
+}
 
+ul{
+    display: inline-block;
+    list-style-type: none;
 }

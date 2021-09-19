@@ -48,3 +48,13 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def has_book(self, author: Author) -> bool:
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_search_results(self) -> list[Book]:
+        raise NotImplementedError
+
+    def set_search_results(self, array):
+        raise NotImplementedError
+
+    def clear_search_results(self):
+        raise NotImplementedError

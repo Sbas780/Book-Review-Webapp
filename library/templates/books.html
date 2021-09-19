@@ -1,17 +1,23 @@
 {% extends 'layout.html' %}
 {% block content %}
+<a href="{{ url_for('home_blueprint.home') }}"><h2>Home</h2></a>
 <h1>Books</h1>
+{% include 'search_bar.html' %}
 {% include 'sort_by.html' %}
 {% for book in book_list %}
 <h1>{{ book.title }}</h1>
 <h2>{{ book.book_id }}</h2>
+<p>{{ book.release_year }}</p>
 {% if book.ebook == False %}
-<p>Ebook: False</p>
+<p>Ebook: No</p>
 {% else %}
-<p>Ebook: True</p>
+<p>Ebook: Yes</p>
 {% endif %}
 {% for i in book.authors %}
-<p>{{ i.full_name }}</p>
+<ul>
+<li>{{ i.full_name }}</li>
+</ul>
 {% endfor %}
+<hr />
 {% endfor %}
 {% endblock %}
