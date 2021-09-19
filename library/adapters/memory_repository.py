@@ -12,6 +12,7 @@ class MemoryRepository(AbstractRepository):
         self.__users = list()
         self.__search_results = list()
         self.__publishers = list()
+        self.__available_author = list()
 
     def get_books(self) -> list[Book]:
         return self.__books
@@ -57,6 +58,30 @@ class MemoryRepository(AbstractRepository):
             if book.publisher not in self.__publishers and book.publisher.name != "N/A":
                 self.__publishers.append(book.publisher)
         return self.__publishers
+
+    def get_available_authors(self):
+        for book in self.__books:
+            for author in book.authors:
+                if author not in self.__available_author:
+                    self.__available_author.append(author)
+        return self.__available_author
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def load_books(data_path: Path, repo: MemoryRepository):
     authors = str(data_path / 'book_authors_excerpt.json')

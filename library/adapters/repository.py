@@ -61,5 +61,10 @@ class AbstractRepository(abc.ABC):
     def clear_search_results(self):
         raise NotImplementedError
 
+    @abc.abstractmethod
     def get_publishers(self) -> list[Publisher]:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_available_authors(self):
         raise NotImplementedError

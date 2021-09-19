@@ -1,13 +1,27 @@
 {% extends 'layout.html' %}
 {% block content %}
 <h1>Kiosk</h1>
-{% include 'search_bar.html' %}
+<section class="ui center aligned segment padded">
+    <div class="ui text container">
 
-<a href="{{ url_for('browser_bp.browse_books') }}"><h2>Browse Books</h2></a>
-<a href="{{ url_for('browser_bp.browse_authors') }}"><h2>Browse Authors</h2></a>
-<a href="{{ url_for('authentication_bp.register') }}"><h2>Register</h2></a>
-<a href="{{ url_for('authentication_bp.login') }}"><h2>Login</h2></a>
-<a href="{{ url_for('browser_bp.browse_publishers') }}"><h2>Browse Publishers</h2></a>
+{% include 'search_bar.html' %}
+</div>
+</section>
+<body>
+    <header>
+        <div class="main">
+            <ul>
+                <li><a href="{{ url_for('browser_bp.browse_books') }}"><h2>Browse Books</h2></a></li>
+                <li><a href="{{ url_for('browser_bp.browse_authors') }}"><h2>Browse Authors</h2></a></li>
+                <li><a href="{{ url_for('authentication_bp.register') }}"><h2>Register</h2></a></li>
+                <li><a href="{{ url_for('authentication_bp.login') }}"><h2>Login</h2></a></li>
+                <li><a href="{{ url_for('browser_bp.browse_publishers') }}"><h2>Browse Publishers</h2></a></li>
+            </ul>
+        </div>
+    </header>
+
+</body>
+
 
 
 
