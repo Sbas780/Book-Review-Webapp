@@ -44,3 +44,7 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_user(self, user_name) -> User or None:
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def has_book(self, author: Author) -> bool:
+        raise NotImplementedError

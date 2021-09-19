@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 <h1>Books</h1>
+{% include 'sort_by.html' %}
 {% for book in book_list %}
 <h1>{{ book.title }}</h1>
 <h2>{{ book.book_id }}</h2>

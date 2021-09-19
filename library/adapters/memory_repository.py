@@ -35,6 +35,12 @@ class MemoryRepository(AbstractRepository):
     def get_user(self, user_name: User):
         return next((user for user in self.__users if user.user_name == user_name), None)
 
+    def has_book(self, author: Author) -> bool:
+        for book in self.__books:
+            if author in book.authors:
+                return True
+        return False
+
 def load_books(data_path: Path, repo: MemoryRepository):
     authors = str(data_path / 'book_authors_excerpt.json')
     comic_books = str(data_path / 'comic_books_excerpt.json')

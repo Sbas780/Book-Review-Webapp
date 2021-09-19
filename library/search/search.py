@@ -12,7 +12,6 @@ def search():
     form = SearchForm(request.args, meta={'csrf': False})
     books = utils.get_list_of_books()
     if search == 'POST':
-
         return render_template('search.html', form=form, book_list=books)
     query = request.args.get('search', '')
     books = search_for_items(query)
@@ -22,4 +21,4 @@ def search():
 
 class SearchForm(FlaskForm):
     search = StringField('search')
-    submit = SubmitField('submit')
+    submit = SubmitField('Find')
