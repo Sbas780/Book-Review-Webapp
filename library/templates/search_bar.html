@@ -1,24 +1,17 @@
-<form class="ui form" action=" {{ url_for('search_bp.search') }} " id="search-form">
+<form class="ui form" action=" {{ url_for('search_bp.search') }} " id="search-form" xmlns="http://www.w3.org/1999/html">
+    <section class="ui center aligned segment padded">
     <div class="field">
-        <div class="ui icon input">
-            {{ form.search(placeholder="Search...") }}
+            {{ form.search(class="search", placeholder="Search...") }}
         </div>
-    </div>
-    <div class="ui accordion field {{ 'active' if is_advanced_search }}">
-        <div class="title {{ 'active' if is_advanced_search }}">
-            <i class="icon dropdown"></i>
-            Advanced Search
-        </div>
-        <div class="ui content field segment basic left aligned {{ 'active' if is_advanced_search }}">
             <div class="field">
                 {{ form.publisher.label }}
-                {{ form.publisher(class_="ui search dropdown") }}
+                {{ form.publisher(class="ui search dropdown") }}
             </div>
             <div class="field">
                 {{ form.author.label }}
-                {{ form.author(class_="ui search dropdown") }}
+                {{ form.author(class="ui search dropdown") }}
             </div>
-        </div>
-        {{ form.submit(class_="ui button") }}
-    </div>
+
+    {{ form.submit(class="ui button") }}
+    </section>
 </form>
