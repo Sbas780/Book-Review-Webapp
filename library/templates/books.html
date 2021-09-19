@@ -2,12 +2,12 @@
 {% block content %}
 <a href="{{ url_for('home_blueprint.home') }}"><h2>Home</h2></a>
 <h1>Books</h1>
-{% include 'search_bar.html' %}
-{% include 'sort_by.html' %}
+
 {% for book in book_list %}
 <h1>{{ book.title }}</h1>
 <h2>{{ book.book_id }}</h2>
 <p>{{ book.release_year }}</p>
+<p>{{ book.publisher.name }}</p>
 {% if book.ebook == False %}
 <p>Ebook: No</p>
 {% else %}

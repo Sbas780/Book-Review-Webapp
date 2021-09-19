@@ -9,16 +9,8 @@ browser_bp = Blueprint('browser_bp', __name__, url_prefix='/browsing')
 
 @browser_bp.route('/books', methods=['GET', 'POST'])
 def browse_books():
-    form = RequiredForms(request.args, meta={'csrf': False})
     books = utils.get_list_of_books()
-    select = request.args.get("sort")
-    query = request.args.get('search', '')
-    if select == "2":
-        results = services.get_search_results()
-        results = services.sort_by_date(results)
-        return render_template('books.html', book_list=results, form=form)
-
-    return render_template('books.html', book_list=books, form=form)
+    return render_template('books.html', book_list=books)
 
 @browser_bp.route('/authors', methods=['GET'])
 def browse_authors():
@@ -26,4 +18,7 @@ def browse_authors():
     return render_template('authors.html', author_list=authors)
 
 
-
+@browser_bp.route('/publishers', methods=['GET'])
+def browse_publishers():
+    publishers = utils.get_publishers()
+    return render_template('publishers.html', publisher_list=publishers)

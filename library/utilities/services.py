@@ -21,3 +21,6 @@ def get_search_results(repo: AbstractRepository):
 
 def clear_search_results(repo: AbstractRepository):
     repo.clear_search_results()
+
+def get_publishers(repo: AbstractRepository):
+    return repo.get_publishers()

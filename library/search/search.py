@@ -16,8 +16,6 @@ def search():
         return render_template('search.html', form=form, book_list=books)
     query = request.args.get('search', '')
 
-    if query == "":
-        utils.set_search_results(books)
     books = search_for_items(query)
     return render_template('search.html', form=form, book_list=books)
 

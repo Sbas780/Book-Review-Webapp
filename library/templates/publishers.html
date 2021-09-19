@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h1>Publishers</h1>
+{% for publisher in publisher_list %}
+<p>{{ publisher.name }}</p>
+
+{% endfor %}
+{% endblock %}

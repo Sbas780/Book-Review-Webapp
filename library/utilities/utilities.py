@@ -21,3 +21,6 @@ def get_search_results():
 
 def clear_search_results():
     services.clear_search_results(repo.repo_instance)
+
+def get_publishers():
+    return services.get_publishers(repo.repo_instance)
