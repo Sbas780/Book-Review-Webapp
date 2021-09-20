@@ -5,13 +5,18 @@
         {{ book.title }}
     </h1>
 </section>
-        <p class="ui segment ">Book ID: {{ book.book_id}} </p>
-        <p class="ui segment ">Release Year: {{ book.release_year}}</p>
-        <p class="ui segment ">Ebook: {{ book.ebook }}</p>
-        <p class="ui segment ">Description: {{ book.description }}</p>
-
-
-
-
+        <p class="ui segment "><b>Book ID:</b> {{ book.book_id}} </p>
+        <p class="ui segment "><b>Release Year:</b> {{ book.release_year}}</p>
+        <p class="ui segment "><b>Ebook:</b> {{ book.ebook }}</p>
+        <p class="ui segment "><b>Publisher:</b> {{ book.publisher.name}}</p>
+        <p class="ui segment "><b>Description:</b> {{ book.description }}</p>
+        <section class="ui segment"> <b>Author(s):</b>
+        {% for i in book.authors%}
+        <div class="ui horizontal list">
+        <a class="ui label ">{{ i.full_name }}</a>
+        </div>
+        {% endfor %}
+        </section>
+        <a class="ui segment padded label" href="{{ url_for('browser_bp.reviews', book_id=book.book_id) }}"> View Reviews</a>
 
 {% endblock %}

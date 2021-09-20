@@ -1,5 +1,7 @@
 import library.adapters.repository as repo
 import library.utilities.services as services
+from library.domain.model import Book
+
 
 def get_list_of_books():
     books = services.get_books(repo.repo_instance)
@@ -30,3 +32,6 @@ def get_book_by_id(book_id):
 
 def get_available_authors():
     return services.get_available_authors(repo.repo_instance)
+
+def get_review_by_book(book:Book):
+    return services.get_review_by_book(repo.repo_instance, book)

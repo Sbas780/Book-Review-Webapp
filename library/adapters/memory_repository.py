@@ -13,6 +13,7 @@ class MemoryRepository(AbstractRepository):
         self.__search_results = list()
         self.__publishers = list()
         self.__available_author = list()
+        self.__reviews: [Review] = list()
 
     def get_books(self) -> list[Book]:
         return self.__books
@@ -71,6 +72,18 @@ class MemoryRepository(AbstractRepository):
         for book in self.__books:
             if str(book.book_id) == book_id:
                 return book
+
+    def get_reviews_by_book(self, book: Book):
+        results = []
+        for items in self.__reviews:
+            if book.book_id == items.book.book_id:
+                results.append(items)
+        return results
+
+    def add_reviews(self, review_text: str, rating: int, book: Book):
+        new_review = Review(book, review_text, rating)
+        self.__reviews.append(new_review)
+
 
 
 

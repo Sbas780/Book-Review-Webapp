@@ -72,3 +72,11 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_book_by_id(self, book_id):
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_reviews_by_book(self, book: Book):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_reviews(self, review_text: str, rating: int, book: Book):
+        raise NotImplementedError

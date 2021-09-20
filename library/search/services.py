@@ -10,15 +10,24 @@ def search_for_items(user_input: str, authors, publishers):
     user_input = user_input.lower()
     books = utils.get_list_of_books()
 
+
     for book in books:
         if user_input in str(book.book_id) or user_input in book.title.lower() or user_input in book.publisher.name.lower():
             book_results.append(book)
 
     if publishers:
         book_results = filter(lambda x: any(publisher == x.publisher.name for publisher in publishers), book_results)
+    user_results = []
+    if authors:
+        for book in book_results:
+            new_list = [auth.full_name for auth in book.authors]
+            if any(item in new_list for item in authors):
+                user_results.append(book)
+    else:
+        user_results = book_results
 
 
-    return book_results
+    return user_results
 
 
 def create_search_fields(repo: AbstractRepository, request_args):

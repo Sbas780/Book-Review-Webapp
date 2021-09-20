@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block content %}
+<section class="ui padded">
+    <a href="{{url_for('browser_bp.book_extend', book_id=book.book_id)}}">
+        <h1 class="ui top attached block header center aligned padded">
+        {{ book.title }}
+    </h1></a>
+</section>
+<form class="ui segment padded" method="POST" action="{{ url_for('browser_bp.reviews', book_id=book.book_id) }}">
+     {{ form.csrf_token }}
+     {{ form.rating.label }}
+     {{ form.rating }}
+     {{ form.review.label }}
+     {{ form.review }}
+     {{ form.submit }}
+</form>
+
+<section class="ui segment padded">
+    {% for review in reviews %}
+    <p>{{ review.review_text }}</p>
+    {% endfor %}
+</section>
+{% endblock %}

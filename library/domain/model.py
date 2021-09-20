@@ -117,7 +117,6 @@ class Book:
         self.__ebook = False
         self.__num_pages = None
 
-
     @property
     def book_id(self) -> int:
         return self.__book_id
