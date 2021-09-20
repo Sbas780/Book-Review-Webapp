@@ -4,8 +4,8 @@
 <h1>Books</h1>
 
 {% for book in book_list %}
-<h1>{{ book.title }}</h1>
-<h2>{{ book.book_id }}</h2>
+<a href="{{url_for('browser_bp.book_extend', book_id=book.book_id)}}"><h3>{{ book.title }}</h3></a>
+<p>{{ book.book_id }}</p>
 <p>{{ book.release_year }}</p>
 <p>{{ book.publisher.name }}</p>
 {% if book.ebook == False %}
@@ -14,9 +14,12 @@
 <p>Ebook: Yes</p>
 {% endif %}
 {% for i in book.authors %}
-<ul>
-<li>{{ i.full_name }}</li>
-</ul>
+<div id="menu">
+    <ul>
+        <li>{{ i.full_name }}</li>
+    </ul>
+</div>
+
 {% endfor %}
 <hr />
 {% endfor %}

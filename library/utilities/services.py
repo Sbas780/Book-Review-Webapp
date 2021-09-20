@@ -27,3 +27,7 @@ def get_publishers(repo: AbstractRepository):
 
 def get_available_authors(repo: AbstractRepository):
     return repo.get_available_authors()
+
+
+def get_book_by_id(repo: AbstractRepository, book_id):
+    return repo.get_book_by_id(book_id)

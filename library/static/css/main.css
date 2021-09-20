@@ -5,16 +5,18 @@ body{
 
 }
 
-.ui.center.aligned.segment.padded{
-    border-radius: 0 0 0 0;
-    background-color: #F7F7F2;
 
-
-
-}
 .ui.search.dropdown{
     border-radius: 0 0 0 0;
     background-color: #F7F7F2;
     width: 50px;
 
+}
+
+#menu ul {
+    list-style: none;
+
+}
+#menu li {
+    display: inline-block;
 }

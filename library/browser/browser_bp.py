@@ -21,3 +21,9 @@ def browse_authors():
 def browse_publishers():
     publishers = utils.get_publishers()
     return render_template('publishers.html', publisher_list=publishers)
+
+
+@browser_bp.route('/books/<book_id>')
+def book_extend(book_id):
+    book = utils.get_book_by_id(book_id)
+    return render_template('book_extend.html', book=book)

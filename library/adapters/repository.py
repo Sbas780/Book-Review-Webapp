@@ -68,3 +68,7 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_available_authors(self):
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_book_by_id(self, book_id):
+        raise NotImplementedError

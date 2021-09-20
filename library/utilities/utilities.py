@@ -24,3 +24,6 @@ def clear_search_results():
 
 def get_publishers():
     return services.get_publishers(repo.repo_instance)
+
+def get_book_by_id(book_id):
+    return services.get_book_by_id(repo.repo_instance, book_id)

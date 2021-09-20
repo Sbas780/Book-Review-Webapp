@@ -67,7 +67,10 @@ class MemoryRepository(AbstractRepository):
         return self.__available_author
 
 
-
+    def get_book_by_id(self, book_id):
+        for book in self.__books:
+            if str(book.book_id) == book_id:
+                return book
 
 
 
