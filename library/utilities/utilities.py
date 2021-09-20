@@ -27,3 +27,6 @@ def get_publishers():
 
 def get_book_by_id(book_id):
     return services.get_book_by_id(repo.repo_instance, book_id)
+
+def get_available_authors():
+    return services.get_available_authors(repo.repo_instance)
