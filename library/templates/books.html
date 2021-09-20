@@ -1,26 +1,31 @@
 {% extends 'layout.html' %}
 {% block content %}
 <a href="{{ url_for('home_blueprint.home') }}"><h2>Home</h2></a>
-<h1>Books</h1>
-
+<h1 class>Books</h1>
+<section class="ui segment padded">
 {% for book in book_list %}
 <a href="{{url_for('browser_bp.book_extend', book_id=book.book_id)}}"><h3>{{ book.title }}</h3></a>
 <p>{{ book.book_id }}</p>
 <p>{{ book.release_year }}</p>
 <p>{{ book.publisher.name }}</p>
+    <div>
 {% if book.ebook == False %}
-<p>Ebook: No</p>
+
+<p class="ui label red">Ebook: No</p>
 {% else %}
-<p>Ebook: Yes</p>
+<p class="ui label green">Ebook: Yes</p>
 {% endif %}
-{% for i in book.authors %}
-<div id="menu">
-    <ul>
-        <li>{{ i.full_name }}</li>
-    </ul>
+        </div>
+<br>
+ {% for i in book.authors %}
+
+<div class="ui horizontal  list">
+    <a class="ui label grey">{{ i.full_name }}</a>
 </div>
 
 {% endfor %}
+
 <hr />
 {% endfor %}
+     </section>
 {% endblock %}

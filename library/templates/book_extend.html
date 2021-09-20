@@ -1,4 +1,17 @@
 {% extends 'layout.html' %}
 {% block content %}
-<p>{{ book.title }}</p>
+<section class="ui padded">
+    <h1 class="ui top attached block header center aligned padded">
+        {{ book.title }}
+    </h1>
+</section>
+        <p class="ui segment ">Book ID: {{ book.book_id}} </p>
+        <p class="ui segment ">Release Year: {{ book.release_year}}</p>
+        <p class="ui segment ">Ebook: {{ book.ebook }}</p>
+        <p class="ui segment ">Description: {{ book.description }}</p>
+
+
+
+
+
 {% endblock %}
