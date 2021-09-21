@@ -6,7 +6,6 @@ from flask_wtf import FlaskForm
 from werkzeug.utils import redirect
 from wtforms import SelectField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired, ValidationError, NumberRange, Length
-from flask_paginate import Pagination,get_page_parameter
 import library.utilities.utilities as utils
 import library.adapters.repository as repo
 from library.browser import services

@@ -1,72 +1,8 @@
 {% extends 'layout.html' %}
 {% block content %}
-<h1>List of Authors</h1>
-    <head>
-<style>
-.pagination {
-  display: inline-block;
-}
-
-.pagination a {
-  color: black;
-  float: left;
-  padding: 2px 4px;
-  text-decoration: none;
-}
-
-.pagination a.active {
-  background-color: #4CAF50;
-  color: white;
-  border-radius: 5px;
-}
-
-.pagination a:hover:not(.active) {
-  background-color: #ddd;
-  border-radius: 5px;
-}
-</style>
-</head>
-<body>
-
-<h2></h2>
-
-<div class="pagination">
-      <a href="#">Previous</a>
-      <a href="#">A</a>
-      <a href="#">B</a>
-      <a href="#">C</a>
-      <a href="#">D</a>
-      <a href="#">E</a>
-      <a href="#">F</a>
-      <a href="#">G</a>
-    <a href="#">H</a>
-    <a href="#">I</a>
-    <a href="#">J</a>
-    <a href="#">K</a>
-    <a href="#">L</a>
-    <a href="#">M</a>
-    <a href="#">N</a>
-    <a href="#">O</a>
-    <a href="#">P</a>
-    <a href="#">Q</a>
-    <a href="#">R</a>
-    <a href="#">S</a>
-    <a href="#">T</a>
-    <a href="#">U</a>
-    <a href="#">V</a>
-    <a href="#">W</a>
-    <a href="#">X</a>
-    <a href="#">Y</a>
-    <a href="#">Z</a>
-    <a href="#">Next</a>
-</div>
-
-</body>
-
-<body>
+<a href="{{ url_for('home_blueprint.home') }}"><h2>Home</h2></a>
+<h1>Authors</h1>
 {% for author in author_list %}
 <p>{{ author.full_name }}</p>
-</body>
-
 {% endfor %}
 {% endblock %}
