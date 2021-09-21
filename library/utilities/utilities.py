@@ -35,3 +35,6 @@ def get_available_authors():
 
 def get_review_by_book(book:Book):
     return services.get_review_by_book(repo.repo_instance, book)
+
+def get_chunks(data_array, per_page):
+    return services.get_chunks(repo.repo_instance, data_array, per_page)

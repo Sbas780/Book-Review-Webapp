@@ -1,6 +1,5 @@
 {% extends 'layout.html' %}
 {% block content %}
-<a href="{{ url_for('home_blueprint.home') }}"><h2>Home</h2></a>
 <h1>Publishers</h1>
 {% for publisher in publisher_list %}
 <p>{{ publisher.name }}</p>

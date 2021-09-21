@@ -1,95 +1,25 @@
 body{
     background-color: #434343;
-    padding: 5% 18% 10% 18%;
-
 }
 
 .ui.center.aligned.segment.padded{
     border-radius: 0 0 0 0;
    background-color: #434343
-
-
-
 }
+
+.container{
+    padding: 5% 10%;
+}
+
 .ui.search.dropdown{
-    border-radius: 0 0 0 0;
-    background-color: #fff;
+    border-radius: 5 5 5 5;
+
     width: 50px;
-
 }
 
-nav {
-    margin: 27px auto 0;
-    position: relative;
-    width: 840px;
-    height: 50px;
-    background-color: #434343;
-    border-radius: 8px;
-    font-size: 0;
-}
 
-nav a {
-    line-height: 50px;
-    height: 100%;
-    font-size: 15px;
-    display: inline-block;
-    position: relative;
-    z-index: 1;
-    text-decoration: none;
-    text-align: center;
-    color: white;
-    cursor: pointer;
-}
-
-nav .animation {
-    position: absolute;
-    height: 100%;
-    top: 0;
-    z-index: 0;
-    transition: all .5s ease 0s;
-    border-radius: 8px;
-}
-
-nav a:nth-child(1) {
-    width: 150px;
-}
-nav a:nth-child(2) {
-    width: 150px;
-}
-nav a:nth-child(3) {
-    width: 150px;
-}
-nav a:nth-child(4) {
-    width: 150px;
-}
-nav a:nth-child(5) {
-    width: 230px;
-}
-
-nav .start-register, a:nth-child(1):hover~.animation {
-    width: 150px;
-    left: 0;
-    background-color: #1abc9c;
-}
-nav .start-login, a:nth-child(2):hover~.animation {
-    width: 150px;
-    left: 150px;
-    background-color: #e74c3c;
-}
-nav .start-books, a:nth-child(3):hover~.animation {
-    width: 150px;
-    left: 300px;
-    background-color: #3498db;
-}
-nav .start-authors, a:nth-child(4):hover~.animation {
-    width: 150px;
-    left: 450px;
-    background-color: #9b59b6;
-}
-nav .start-publishers, a:nth-child(5):hover~.animation {
-    width: 240px;
-    left: 600px;
-    background-color: #e67e22;
+.ui.inverted.padded{
+    background-color: black;
 }
 
 h1{
@@ -97,10 +27,29 @@ h1{
    margin: 40px 0 40px;
    font-size: 50px;
    color: white;
-   text-shadow: 1px 2px 8px #000000;
 }
-
 
 h2 {
     color: white;
 }
+
+#main{
+    padding: 10% 20%
+
+}
+.pages{
+    display: inline-block;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+
+}
+
+a{
+    color: white;
+}
+
+
+

@@ -1,9 +1,17 @@
+
 {% extends 'layout.html' %}
 {% block content %}
-<a href="{{ url_for('home_blueprint.home') }}"><h2>Home</h2></a>
 <h1 class>Books</h1>
-<section class="ui segment padded">
+
+
+
+
+{% include 'pagination.html' %}
+
+
+
 {% for book in book_list %}
+<section class="ui grey inverted segment padded">
 <a href="{{url_for('browser_bp.book_extend', book_id=book.book_id)}}"><h3>{{ book.title }}</h3></a>
 <p>{{ book.book_id }}</p>
 <p>{{ book.release_year }}</p>
@@ -20,12 +28,14 @@
  {% for i in book.authors %}
 
 <div class="ui horizontal  list">
-    <a class="ui label grey">{{ i.full_name }}</a>
+    <a class="ui black label grey">{{ i.full_name }}</a>
 </div>
 
 {% endfor %}
+  </section>
 
-<hr />
 {% endfor %}
-     </section>
+
+{% include 'pagination.html' %}
 {% endblock %}
+

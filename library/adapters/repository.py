@@ -80,3 +80,7 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def add_reviews(self, review_text: str, rating: int, book: Book):
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def chunks(self, data_array: [], per_page: int):
+        raise NotImplementedError

@@ -1,5 +1,6 @@
 import math
 
+import flask
 from better_profanity import profanity
 from flask import Blueprint, render_template, request, url_for
 from flask_wtf import FlaskForm
@@ -22,16 +23,62 @@ REVIEW_TEXT_REQUIRED_MESSAGE = 'Reviews must be at least one character long.'
 INVALID_REVIEW_TEXT_LENGTH_MESSAGE = 'Reviews must be at least one character long.'
 REVIEW_TEXT_CONTAINS_PROFANITY_MESSAGE = 'No profanity'
 
+
 @browser_bp.route('/books', methods=['GET', 'POST'])
-def browse_books():
+def browse_books(page_number=0):
     books = utils.get_list_of_books()
-    return render_template('books.html', book_list=books)
+    book_chunks = utils.get_chunks(books, 10)
+
+    page_number = request.args.get("page_number")
+    if page_number is None:
+        page_number = 0
+
+    page_number = int(page_number)
+    if page_number == 0:
+        previous_page = 0
+    else:
+        previous_page = page_number - 1
+
+    if page_number == len(book_chunks) - 1:
+        next_page = len(book_chunks) - 1
+    else:
+        next_page = page_number + 1
+    return render_template('books.html',
+                           url_route="browser_bp.browse_books",
+                           current_page=page_number,
+                           book_list=book_chunks[page_number],
+                           num_pages=len(book_chunks),
+                           prev_page=previous_page,
+                           next_page=next_page)
+
 
 @browser_bp.route('/authors', methods=['GET'])
-def browse_authors():
+def browse_authors(page_number=0):
     authors = utils.get_authors()
-    return render_template('authors.html', author_list=authors)
+    total_num_of_authors = len(authors)
+    author_chunks = utils.get_chunks(authors, 20)
+    page_number = request.args.get("page_number")
+    if page_number is None:
+        page_number = 0
 
+    page_number = int(page_number)
+    if page_number == 0:
+        previous_page = 0
+    else:
+        previous_page = page_number - 1
+
+    if page_number == len(author_chunks) - 1:
+        next_page = len(author_chunks) - 1
+    else:
+        next_page = page_number + 1
+    return render_template('authors.html',
+                           total_authors=total_num_of_authors,
+                           current_page=page_number,
+                           url_route="browser_bp.browse_authors",
+                           author_list=author_chunks[page_number],
+                           num_pages=len(author_chunks),
+                           prev_page=previous_page,
+                           next_page=next_page)
 
 @browser_bp.route('/publishers', methods=['GET'])
 def browse_publishers():

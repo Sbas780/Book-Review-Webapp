@@ -1,6 +1,6 @@
 <form class="ui form" action=" {{ url_for('search_bp.search') }} " id="search-form" xmlns="http://www.w3.org/1999/html">
     {{ form.csrf_token }}
-    <section class="ui raised center aligned segment">
+    <section class="ui grey inverted raised center aligned segment">
     <div class="field">
             {{ form.search(class="search", placeholder="Search...") }}
         </div>

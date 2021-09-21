@@ -24,8 +24,6 @@
              <i class="user icon"></i>&ensp;Anonymous&emsp;|&emsp;Rating:&ensp;{% for i in range(review.rating)%}
             <i class="star icon"></i>{% endfor %}&emsp;|&emsp;{{review.timestamp.strftime('%m/%d/%Y')}}
 
-
-
         </div>
         <div class="ui secondary segment padded">
             <p>{{ review.review_text }}</p>

@@ -38,3 +38,7 @@ def get_book_by_id(repo: AbstractRepository, book_id):
 
 def get_review_by_book(repo: AbstractRepository, book):
     return repo.get_reviews_by_book(book)
+
+
+def get_chunks(repo: AbstractRepository, data_array: [], per_page: int):
+    return list(repo.chunks(data_array, per_page))

@@ -85,16 +85,9 @@ class MemoryRepository(AbstractRepository):
         self.__reviews.append(new_review)
 
 
-
-
-
-
-
-
-
-
-
-
+    def chunks(self, data_array: [], per_page: int):
+        for i in range(0, len(data_array), per_page):
+            yield data_array[i:i + per_page]
 
 
 
