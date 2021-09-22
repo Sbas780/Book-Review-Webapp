@@ -1,16 +1,17 @@
 <form class="ui form" action=" {{ url_for('search_bp.search') }} " id="search-form" xmlns="http://www.w3.org/1999/html">
     {{ form.csrf_token }}
-    <section class="ui grey inverted raised center aligned segment">
+    <section class="ui grey inverted center aligned segment">
     <div class="field">
             {{ form.search(class="search", placeholder="Search...") }}
         </div>
-            <div class="field">
+        <div class="fields">
+            <div class=" eight wide field">
                 {{ form.publisher(class="ui search dropdown") }}
             </div>
-            <div class="field">
+            <div class="eight wide field">
                 {{ form.author(class="ui search dropdown") }}
             </div>
-
+        </div>
 
     {{ form.submit(class="ui button") }}
     </section>
