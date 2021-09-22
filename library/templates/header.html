@@ -7,8 +7,18 @@
     <a class="item {{ 'active' if request.path == '/browsing/publishers'}}" href="{{ url_for('browser_bp.browse_publishers')}}">Publishers</a>
     <div class="right menu">
 
+
+
+        {% if session['user_name'] %}
+
+        <a class="item {{ 'active' if request.path == '/logout'}}" href="{{ url_for('authentication_bp.logout')}}">{{session['user_name']}}</a>
+        <a class="item {{ 'active' if request.path == '/logout'}}" href="{{ url_for('authentication_bp.logout')}}">Log Out</a>
+
+
+        {% else %}
         <a class="item {{ 'active' if request.path == '/login'}}" href="{{ url_for('authentication_bp.login')}}">Login</a>
         <a class="item {{ 'active' if request.path == '/register'}}" href="{{ url_for('authentication_bp.register')}}">Register</a>
+        {% endif %}
     </div>
   </div>
 </div>

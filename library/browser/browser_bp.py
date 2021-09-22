@@ -1,8 +1,6 @@
-import math
 
-import flask
 from better_profanity import profanity
-from flask import Blueprint, render_template, request, url_for
+from flask import Blueprint, render_template, request, url_for, session
 from flask_wtf import FlaskForm
 from werkzeug.utils import redirect
 from wtforms import SelectField, TextAreaField, SubmitField
@@ -10,6 +8,7 @@ from wtforms.validators import DataRequired, ValidationError, NumberRange, Lengt
 import library.utilities.utilities as utils
 import library.adapters.repository as repo
 from library.browser import services
+
 
 browser_bp = Blueprint('browser_bp', __name__, url_prefix='/browsing')
 
@@ -43,7 +42,7 @@ def browse_books(page_number=0):
         next_page = len(book_chunks) - 1
     else:
         next_page = page_number + 1
-    return render_template('books.html',
+    return render_template('books/books.html',
                            url_route="browser_bp.browse_books",
                            current_page=page_number,
                            book_list=book_chunks[page_number],
@@ -58,6 +57,8 @@ def browse_authors(page_number=0):
     total_num_of_authors = len(authors)
     author_chunks = utils.get_chunks(authors, 20)
     page_number = request.args.get("page_number")
+    available_authors = utils.get_available_authors()
+    showing_available_authors = False
     if page_number is None:
         page_number = 0
 
@@ -71,7 +72,11 @@ def browse_authors(page_number=0):
         next_page = len(author_chunks) - 1
     else:
         next_page = page_number + 1
-    return render_template('authors.html',
+
+
+    return render_template('authors/authors.html',
+                           showing_available_authors=showing_available_authors,
+                           available_authors=available_authors,
                            total_authors=total_num_of_authors,
                            current_page=page_number,
                            url_route="browser_bp.browse_authors",
@@ -89,7 +94,7 @@ def browse_publishers():
 @browser_bp.route('/books/<book_id>', methods=['GET', 'POST'])
 def book_extend(book_id):
     book = utils.get_book_by_id(book_id)
-    return render_template('book_extend.html', book=book)
+    return render_template('books/book_extend.html', book=book)
 
 
 @browser_bp.route('/books/<book_id>/reviews', methods=['GET', 'POST'])
@@ -97,13 +102,20 @@ def reviews(book_id):
     form = ReviewForm()
     book = utils.get_book_by_id(book_id)
 
+    try:
+        user_name = session['user_name']
+    except KeyError:
+        user_name = "Anonymous"
+
     list_of_reviews = utils.get_review_by_book(book)
+
+
     if form.validate_on_submit():
         services.add_review(repo.repo_instance, form.review.data, form.rating.data, book)
         return redirect(url_for('browser_bp.reviews', book_id=book_id))
     list_of_reviews = utils.get_review_by_book(book)
 
-    return render_template('review.html', form=form, book=book, reviews=list_of_reviews)
+    return render_template('review.html', form=form, book=book, reviews=list_of_reviews, user_name=user_name)
 
 
 class ProfanityFree:

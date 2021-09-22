@@ -3,7 +3,7 @@
 {% include 'search_bar.html' %}
 
 <h1 class>Books</h1>
-<section class="ui segment padded">
+<section class="ui grey inverted segment padded">
 {% for book in book_list %}
 <a href="{{url_for('browser_bp.book_extend', book_id=book.book_id)}}"><h3>{{ book.title }}</h3></a>
 <p>{{ book.book_id }}</p>
@@ -21,7 +21,7 @@
  {% for i in book.authors %}
 
 <div class="ui horizontal  list">
-    <a class="ui label grey">{{ i.full_name }}</a>
+    <a class="ui black inverted label grey">{{ i.full_name }}</a>
 </div>
 
 {% endfor %}
