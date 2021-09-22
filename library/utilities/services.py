@@ -42,3 +42,6 @@ def get_review_by_book(repo: AbstractRepository, book):
 
 def get_chunks(repo: AbstractRepository, data_array: [], per_page: int):
     return list(repo.chunks(data_array, per_page))
+
+def get_user(repo: AbstractRepository, user_name):
+    return repo.get_user(user_name)

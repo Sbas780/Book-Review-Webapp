@@ -38,3 +38,6 @@ def get_review_by_book(book:Book):
 
 def get_chunks(data_array, per_page):
     return services.get_chunks(repo.repo_instance, data_array, per_page)
+
+def get_user(user_name):
+    return services.get_user(repo.repo_instance, user_name)
