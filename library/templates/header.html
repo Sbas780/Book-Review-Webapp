@@ -10,8 +10,8 @@
 
 
         {% if session['user_name'] %}
-
-        <a class="item {{ 'active' if request.path == '/logout'}}" href="{{ url_for('authentication_bp.logout')}}">{{session['user_name']}}</a>
+        {% set route = "/user/"+session['user_name'] %}
+        <a class="item {{ 'active' if request.path == route}}" href="{{ url_for('user_bp.user_expanded', user_name=session['user_name'])}}">{{session['user_name']}}</a>
         <a class="item {{ 'active' if request.path == '/logout'}}" href="{{ url_for('authentication_bp.logout')}}">Log Out</a>
 
 
