@@ -1,5 +1,5 @@
 body{
-    background-color: #434343;
+    background-color: #41506b;
 }
 
 .ui.center.aligned.segment.padded{
@@ -13,13 +13,12 @@ body{
 
 .ui.search.dropdown{
     border-radius: 5 5 5 5;
-
     width: 50px;
 }
 
 
 .ui.inverted.padded{
-    background-color: black;
+    background-color: #363636;
 }
 
 h1{
@@ -51,5 +50,10 @@ a{
     color: white;
 }
 
+.ui.inverted.segment{
+     background-color: #263849;
+}
 
-
+.ui.label.justify {
+    font-size: 16px;
+}
