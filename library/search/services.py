@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectMultipleField, SubmitField
+from wtforms import StringField, SelectMultipleField, SubmitField, SelectField
 
 import library.utilities.utilities as utils
 from library.adapters.repository import AbstractRepository
-from library.utilities.services import get_available_authors, get_publishers
+from library.utilities.services import get_available_authors, get_publishers, get_available_years
 
 def search_for_items(user_input: str, authors, publishers):
     book_results = []
@@ -33,9 +33,11 @@ def search_for_items(user_input: str, authors, publishers):
 def create_search_fields(repo: AbstractRepository, request_args):
     publishers = get_publishers(repo)
     authors = get_available_authors(repo)
+    years = get_available_years(repo)
     form = SearchForm(request_args)
     form.publisher.choices = [(publisher.name, publisher.name) for publisher in publishers] + [('', 'Publishers')]
     form.author.choices = [(author.full_name, author.full_name) for author in authors] + [('', 'Authors')]
+    form.year.choices = [(year, year) for year in years] + [('', "Release Year")]
     return form
 
 
@@ -45,4 +47,5 @@ class SearchForm(FlaskForm):
     publisher = SelectMultipleField("Publishers")
     author = SelectMultipleField("Authors")
     year = SelectMultipleField("Years")
+    ebook = SelectField("Ebook", choices=[('', "Ebook"),(True, "True"), (False, "False"), ("both", "Both")])
     submit = SubmitField("Find")
