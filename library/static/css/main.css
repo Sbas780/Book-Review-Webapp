@@ -57,3 +57,7 @@ a{
 .ui.label.justify {
     font-size: 16px;
 }
+
+.field.errors li{
+    list-type-style: none;
+}
