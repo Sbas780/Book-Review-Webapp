@@ -89,6 +89,13 @@ class MemoryRepository(AbstractRepository):
         for i in range(0, len(data_array), per_page):
             yield data_array[i:i + per_page]
 
+    def get_available_years(self):
+        year_list = []
+        for book in self.__books:
+            if book.release_year and book.release_year not in year_list:
+                year_list.append(book.release_year)
+
+        return sorted(year_list)
 
 
 

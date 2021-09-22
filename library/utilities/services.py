@@ -45,3 +45,6 @@ def get_chunks(repo: AbstractRepository, data_array: [], per_page: int):
 
 def get_user(repo: AbstractRepository, user_name):
     return repo.get_user(user_name)
+
+def get_available_years(repo: AbstractRepository):
+    return repo.get_available_years()
