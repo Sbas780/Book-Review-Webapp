@@ -4,11 +4,11 @@
 <h1>Authors</h1>
 <body class="author">
 
-<div class="ui teal inverted clearing segment">
-  <div class="ui yellow right floated button" onclick="location.href='{{ url_for(url_route, page_number=next_page) }}'"><i class="chevron right icon"></i></div>
-    <div class="ui yellow left floated button" onclick="location.href='{{ url_for(url_route, page_number=prev_page) }}'"><i class="chevron left icon"></i></div>
-    <div class="ui label justify" >Showing {{ author_list|length + (20)*current_page }} of {{ total_authors }} results</div>
-</div>
+
+<div class="ui yellow right floated button" onclick="location.href='{{ url_for(url_route, page_number=next_page) }}'"><i class="chevron right icon"></i></div>
+<div class="ui yellow left floated button" onclick="location.href='{{ url_for(url_route, page_number=prev_page) }}'"><i class="chevron left icon"></i></div>
+<div class="ui label justify" >Showing {{ author_list|length + (20)*current_page }} of {{ total_authors }} results</div>
+
 
 
 
