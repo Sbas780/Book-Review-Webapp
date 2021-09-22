@@ -44,4 +44,5 @@ class SearchForm(FlaskForm):
     search = StringField("search")
     publisher = SelectMultipleField("Publishers")
     author = SelectMultipleField("Authors")
+    year = SelectMultipleField("Years")
     submit = SubmitField("Find")
