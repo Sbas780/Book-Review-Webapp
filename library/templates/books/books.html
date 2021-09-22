@@ -11,7 +11,7 @@
 
 
 {% for book in book_list %}
-<section class="ui grey inverted segment padded">
+<section class="ui inverted segment padded">
 <a href="{{url_for('browser_bp.book_extend', book_id=book.book_id)}}"><h3>{{ book.title }}</h3></a>
 <p>{{ book.book_id }}</p>
 <p>{{ book.release_year }}</p>
@@ -27,8 +27,8 @@
 <br>
  {% for i in book.authors %}
 
-<div class="ui horizontal  list">
-    <a class="ui black label grey">{{ i.full_name }}</a>
+<div class="ui horizontal list">
+    <a class="ui yellow label">{{ i.full_name }}</a>
 </div>
 
 {% endfor %}
