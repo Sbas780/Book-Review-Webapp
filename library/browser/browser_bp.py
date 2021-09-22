@@ -88,7 +88,30 @@ def browse_authors(page_number=0):
 @browser_bp.route('/publishers', methods=['GET'])
 def browse_publishers():
     publishers = utils.get_publishers()
-    return render_template('publishers.html', publisher_list=publishers)
+    total_num_of_publishers = len(publishers)
+    publisher_chunks = utils.get_chunks(publishers, 5)
+    page_number = request.args.get("page_number")
+    if page_number is None:
+        page_number = 0
+    page_number = int(page_number)
+
+    if page_number == 0:
+        previous_page = 0
+    else:
+        previous_page = page_number - 1
+
+    if page_number ==len(publisher_chunks) - 1:
+        next_page = len(publisher_chunks) - 1
+    else:
+        next_page = page_number + 1
+    return render_template('publishers.html',
+                           total_publishers=total_num_of_publishers,
+                           current_page=page_number,
+                           url_route="browser_bp.browse_publishers",
+                           publisher_list=publisher_chunks[page_number],
+                           num_pages=len(publisher_chunks),
+                           prev_page=previous_page,
+                           next_page=next_page)
 
 
 @browser_bp.route('/books/<book_id>', methods=['GET', 'POST'])
