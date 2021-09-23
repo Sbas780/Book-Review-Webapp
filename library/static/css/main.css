@@ -61,3 +61,7 @@ a{
 .field.errors li{
     list-type-style: none;
 }
+
+.eight.wide.field::placeholder{
+    color: black;
+}

@@ -36,7 +36,7 @@ class MemoryRepository(AbstractRepository):
     def add_user(self, user: User):
         self.__users.append(user)
 
-    def get_user(self, user_name: User):
+    def get_user(self, user_name):
         return next((user for user in self.__users if user.user_name == user_name), None)
 
     def has_book(self, author: Author) -> bool:
@@ -80,7 +80,7 @@ class MemoryRepository(AbstractRepository):
                 results.append(items)
         return results
 
-    def add_reviews(self, review_text: str, rating: int, book: Book):
+    def add_reviews(self, review_text: str, rating: int, book:Book, user_name):
         new_review = Review(book, review_text, rating)
         self.__reviews.append(new_review)
 

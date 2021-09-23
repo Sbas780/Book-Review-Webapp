@@ -239,6 +239,7 @@ class Review:
             raise ValueError
 
         self.__timestamp = datetime.now()
+        self.__user_name = "Anonymous"
 
     @property
     def book(self) -> Book:
@@ -255,6 +256,16 @@ class Review:
     @property
     def timestamp(self) -> datetime:
         return self.__timestamp
+
+    @property
+    def user_name(self):
+        return self.__user_name
+
+    @user_name.setter
+    def user_name(self, user_name):
+        self.__user_name = user_name
+
+
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):

@@ -1,13 +1,17 @@
 {% extends 'layout.html' %}
 {% block content %}
-<div class="ui centered card">
+<section class="ui segment">
+<div class="ui card left aligned">
   <div class="image">
-    <img src="/images/avatar2/large/pain.png">
+    <img src="{{url_for('static', filename='images/profilepic.png')}}">
   </div>
   <div class="content">
-    <a class="header">{{ user.username }}</a>
+    <p class="header">{{ user.user_name }}</p>
   </div>
 </div>
-<p class="ui segment "><b>Books Viewed</b> {{user.reviews}} </p>
-<p class="ui segment "><b>Reviews Given</b> {{user.reviews}}</p>
+
+<p class="ui segment right floated"><b>Books Viewed</b> {{user.reviews}} </p>
+<p class="ui segment right floated"><b>Reviews Given</b> {{user.reviews}}</p>
+
+    </section>
 {% endblock %}

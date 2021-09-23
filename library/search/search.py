@@ -18,7 +18,9 @@ def search():
     query = request.args.get('search', '')
     authors = request.args.getlist('author')
     publishers = request.args.getlist('publisher')
-    books = search_for_items(query, authors, publishers)
+    years = request.args.getlist('year')
+    ebook = request.args.get('ebook')
+    books = search_for_items(query, authors, publishers, years, ebook)
     return render_template('search.html', form=form, book_list=books)
 
 

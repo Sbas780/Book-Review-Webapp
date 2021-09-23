@@ -2,21 +2,27 @@
     {{ form.csrf_token }}
     <section class="ui inverted center aligned segment">
     <div class="field">
+        <h2>Search</h2>
             {{ form.search(class="search", placeholder="Search...") }}
         </div>
         <div class="fields">
             <div class="eight wide field">
+                Publishers
                 {{ form.publisher(class="ui search dropdown") }}
             </div>
             <div class="eight wide field">
+                Authors
                 {{ form.author(class="ui search dropdown") }}
             </div>
+        </div>
+        <div class="fields">
             <div class="eight wide field">
+                Release Year
                 {{ form.year(class="ui search dropdown") }}
             </div>
             <div class="eight wide field">
+                Ebook status
                 {{ form.ebook(class="ui dropdown")}}
-
             </div>
         </div>
 

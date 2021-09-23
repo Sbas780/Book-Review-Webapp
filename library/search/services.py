@@ -5,18 +5,24 @@ import library.utilities.utilities as utils
 from library.adapters.repository import AbstractRepository
 from library.utilities.services import get_available_authors, get_publishers, get_available_years
 
-def search_for_items(user_input: str, authors, publishers):
+def search_for_items(user_input: str, authors, publishers, years, ebook):
     book_results = []
     user_input = user_input.lower()
     books = utils.get_list_of_books()
-
-
+    print(years)
+    print(authors)
+    print(ebook)
     for book in books:
         if user_input in str(book.book_id) or user_input in book.title.lower() or user_input in book.publisher.name.lower():
             book_results.append(book)
 
     if publishers:
         book_results = filter(lambda x: any(publisher == x.publisher.name for publisher in publishers), book_results)
+
+    if years:
+        book_results = filter(lambda x: any(int(year) == x.release_year for year in years), book_results)
+
+
     user_results = []
     if authors:
         for book in book_results:
