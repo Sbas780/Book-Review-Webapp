@@ -3,8 +3,10 @@ from better_profanity import profanity
 from flask import Blueprint, render_template, request, url_for, session
 from flask_wtf import FlaskForm
 from werkzeug.utils import redirect
-from wtforms import SelectField, TextAreaField, SubmitField
+from wtforms import SelectField, TextAreaField, SubmitField, IntegerField, HiddenField
 from wtforms.validators import DataRequired, ValidationError, NumberRange, Length
+from wtforms.widgets import HiddenInput
+
 import library.utilities.utilities as utils
 import library.adapters.repository as repo
 from library.browser import services
@@ -28,6 +30,12 @@ def browse_books(page_number=0):
     books = utils.get_list_of_books()
     total_num_of_books = len(books)
     book_chunks = utils.get_chunks(books, 10)
+    form = AddBookForm()
+
+    if request.method == 'POST':
+        book_id = request.form['book_id']
+        book = utils.get_book_by_id(book_id)
+
 
     page_number = request.args.get("page_number")
     if page_number is None:
@@ -44,6 +52,7 @@ def browse_books(page_number=0):
     else:
         next_page = page_number + 1
     return render_template('books/books.html',
+                           form=form,
                            url_route="browser_bp.browse_books",
                            total_books=total_num_of_books,
                            current_page=page_number,
@@ -169,3 +178,8 @@ class ReviewForm(FlaskForm):
         ProfanityFree(message=REVIEW_TEXT_CONTAINS_PROFANITY_MESSAGE)
     ])
     submit = SubmitField('Submit')
+
+
+class AddBookForm(FlaskForm):
+    add_book = SubmitField("Add Book")
+    book_id = IntegerField(widget=HiddenInput())
