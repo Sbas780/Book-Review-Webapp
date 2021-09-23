@@ -1,10 +1,19 @@
 {% extends 'layout.html' %}
 {% block content %}
+<h1 class>Books</h1>
+
+
+
 {% include 'search_bar.html' %}
 
-<h1 class>Books</h1>
-<section class="ui inverted segment padded">
+
+{% include 'pagination.html' %}
+
 {% for book in book_list %}
+<section class="ui inverted segment padded">
+<div class="ui yellow icon button right floated" data-tooltip="Add users to your feed">
+  <i class="add icon"></i>
+</div>
 <a href="{{url_for('browser_bp.book_extend', book_id=book.book_id)}}"><h3>{{ book.title }}</h3></a>
 <p>{{ book.book_id }}</p>
 <p>{{ book.release_year }}</p>
@@ -20,13 +29,14 @@
 <br>
  {% for i in book.authors %}
 
-<div class="ui horizontal  list">
-    <a class="ui inverted label blue">{{ i.full_name }}</a>
+<div class="ui horizontal list">
+    <a class="ui blue label">{{ i.full_name }}</a>
 </div>
 
 {% endfor %}
+  </section>
 
-<hr />
 {% endfor %}
-     </section>
+
 {% endblock %}
+

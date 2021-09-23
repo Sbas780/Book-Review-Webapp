@@ -93,8 +93,11 @@ class MemoryRepository(AbstractRepository):
 
 
     def chunks(self, data_array: [], per_page: int):
-        for i in range(0, len(data_array), per_page):
-            yield data_array[i:i + per_page]
+        if len(data_array) > per_page:
+            for i in range(0, len(data_array), per_page):
+                yield data_array[i:i + per_page]
+        else:
+            yield data_array
 
     def get_available_years(self):
         year_list = []

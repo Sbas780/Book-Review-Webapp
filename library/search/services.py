@@ -9,9 +9,7 @@ def search_for_items(user_input: str, authors, publishers, years, ebook):
     book_results = []
     user_input = user_input.lower()
     books = utils.get_list_of_books()
-    print(years)
-    print(authors)
-    print(ebook)
+
     for book in books:
         if user_input in str(book.book_id) or user_input in book.title.lower() or user_input in book.publisher.name.lower():
             book_results.append(book)
@@ -33,7 +31,7 @@ def search_for_items(user_input: str, authors, publishers, years, ebook):
         user_results = book_results
 
 
-    return user_results
+    return list(user_results)
 
 
 def create_search_fields(repo: AbstractRepository, request_args):
