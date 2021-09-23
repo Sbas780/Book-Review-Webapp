@@ -32,10 +32,10 @@ def browse_books(page_number=0):
     book_chunks = utils.get_chunks(books, 10)
     form = AddBookForm()
 
+
     if request.method == 'POST':
         book_id = request.form['book_id']
         book = utils.get_book_by_id(book_id)
-
 
     page_number = request.args.get("page_number")
     if page_number is None:
