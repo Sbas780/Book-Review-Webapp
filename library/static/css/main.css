@@ -65,3 +65,9 @@ a{
 .eight.wide.field::placeholder{
     color: black;
 }
+
+.ui.segment.right.floated {
+    position: flex;
+    right: 30px;
+    top: 14px;
+}
