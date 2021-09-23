@@ -8,11 +8,26 @@
     <img src="{{url_for('static', filename='images/profilepic.png')}}">
   </div>
   <div class="content">
-    <p class="header">{{ user.user_name }}</p>
+    <p class="header">{{ user.user_name}} | Num. Books read - {{ user.read_books | length}}</p>
   </div>
 </div>
-<div class="ui segment right floated"><b>Reviews Given</b>{{user.reviews}}</div>
+
+    {% if user.reviews %}
+    <div class="ui segment">
+{% for reviews in user.reviews%}
+  {{reviews}}
+  {% endfor %}
+        </div>
+    {% endif %}
 
 
+  {%  if user.read_books %}
+  <div class="ui segment">
+    {% for books in user.read_books%}
+    <div>{{books.title}}</div>
+
+  {% endfor %}
+  </div>
+{% endif %}
     </section>
 {% endblock %}
