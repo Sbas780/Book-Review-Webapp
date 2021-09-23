@@ -16,9 +16,10 @@
   <i class="add icon"></i>
 </div>
 <a href="{{url_for('browser_bp.book_extend', book_id=book.book_id)}}"><h3>{{ book.title }}</h3></a>
-<p>{{ book.book_id }}</p>
-<p>{{ book.release_year }}</p>
-<p>{{ book.publisher.name }}</p>
+    <p></p>
+<p>Book ID:&nbsp; {{ book.book_id }}</p>
+<p>Release year:&nbsp; {{ book.release_year }}</p>
+<p>Publisher name:&nbsp; {{ book.publisher.name }}</p>
     <div>
 {% if book.ebook == False %}
 
@@ -31,7 +32,7 @@
  {% for i in book.authors %}
 
 <div class="ui horizontal list">
-    <a class="ui blue label">{{ i.full_name }}</a>
+    <a class="ui blue label">Author:&nbsp; {{ i.full_name }}</a>
 </div>
 
 {% endfor %}

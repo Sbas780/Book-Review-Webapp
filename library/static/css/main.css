@@ -71,3 +71,9 @@ a{
     right: 30px;
     top: 14px;
 }
+
+.ui.label {
+    background-color: #41506b;
+    font-size: 14px;
+    color: red;
+}

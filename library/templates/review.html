@@ -4,12 +4,12 @@
 
     <a href="{{url_for('browser_bp.book_extend', book_id=book.book_id)}}">
         <i class="arrow left icon"></i> Back to {{ book.title }}
-        <h1 class="ui top attached block header center aligned padded">
+        <h1 class="ui inverted header segment">
         {{ book.title }}
     </h1></a>
 </section>
 {% if session['user_name'] %}
-<form class="ui segment padded" method="POST" action="{{ url_for('browser_bp.reviews', book_id=book.book_id) }}">
+<form class="ui inverted segment padded" method="POST" action="{{ url_for('browser_bp.reviews', book_id=book.book_id) }}">
      {{ form.csrf_token }}
      {{ form.rating.label }}
      {{ form.rating }}
@@ -23,7 +23,7 @@ You must be logged in to submit a review.
 
     {% for review in reviews %}
     <div class="ui segments padded">
-        <div class="ui segment">
+        <div class="ui inverted segment">
 
              <i class="user icon"></i>&ensp;{{ review.user_name }}&emsp;|&emsp;Rating:&ensp;{% for i in range(review.rating)%}
             <i class="star icon"></i>{% endfor %}&emsp;|&emsp;{{review.timestamp.strftime('%m/%d/%Y')}}
