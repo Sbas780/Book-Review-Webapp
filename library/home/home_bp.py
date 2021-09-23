@@ -10,6 +10,7 @@ home_blueprint = Blueprint('home_blueprint', __name__)
 @home_blueprint.route('/', methods=['GET'])
 @home_blueprint.route('/home', methods=['GET'])
 def home():
+
     form = create_search_fields(repo.repo_instance, request.args)
     book_list = utils.get_list_of_books()
     return render_template('home.html',

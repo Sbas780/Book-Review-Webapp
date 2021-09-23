@@ -134,7 +134,7 @@ def reviews(book_id):
 
 
     if form.validate_on_submit():
-        services.add_review(repo.repo_instance, form.review.data, form.rating.data, book)
+        services.add_review(repo.repo_instance, form.review.data, form.rating.data, book, user_name)
         return redirect(url_for('browser_bp.reviews', book_id=book_id))
     list_of_reviews = utils.get_review_by_book(book)
 

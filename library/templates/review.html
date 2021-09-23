@@ -25,7 +25,7 @@ You must be logged in to submit a review.
     <div class="ui segments padded">
         <div class="ui segment">
 
-             <i class="user icon"></i>&ensp;{{ user_name }}&emsp;|&emsp;Rating:&ensp;{% for i in range(review.rating)%}
+             <i class="user icon"></i>&ensp;{{ review.user_name }}&emsp;|&emsp;Rating:&ensp;{% for i in range(review.rating)%}
             <i class="star icon"></i>{% endfor %}&emsp;|&emsp;{{review.timestamp.strftime('%m/%d/%Y')}}
 
         </div>

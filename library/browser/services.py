@@ -13,5 +13,5 @@ def sort_by_date(array):
     return results
 
 
-def add_review(repo: AbstractRepository, review_string, rating, book):
-    repo.add_reviews(review_string, rating, book)
+def add_review(repo: AbstractRepository, review_string, rating, book, user_name):
+    repo.add_reviews(review_string, rating, book, user_name)
