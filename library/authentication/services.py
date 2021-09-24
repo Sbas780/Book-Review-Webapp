@@ -7,11 +7,14 @@ from library.domain.model import User
 class NameNotUniqueException(Exception):
     pass
 
+
 class UnknownUserException(Exception):
     pass
 
+
 class AuthenticationException(Exception):
     pass
+
 
 def add_user(user_name: str, password: str, repo: AbstractRepository):
     # Check that the given user name is available.

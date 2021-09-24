@@ -30,7 +30,7 @@ def create_app(test_config=None):
         from .browser import browser_bp
         app.register_blueprint(browser_bp.browser_bp)
 
-        from .auth import authentication
+        from .authentication import authentication
         app.register_blueprint(authentication.authentication_blueprint)
 
         from .user import user_bp

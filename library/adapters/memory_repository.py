@@ -23,7 +23,8 @@ class MemoryRepository(AbstractRepository):
         return self.__books
 
     def add_book(self, book: Book):
-        self.__books.append(book)
+        if book not in self.__books:
+            self.__books.append(book)
 
     def get_authors(self):
         return self.__authors
@@ -80,7 +81,7 @@ class MemoryRepository(AbstractRepository):
 
     def get_book_by_id(self, book_id):
         for book in self.__books:
-            if str(book.book_id) == book_id:
+            if str(book.book_id) == str(book_id):
                 return book
 
     def get_reviews_by_book(self, book: Book):
@@ -111,6 +112,10 @@ class MemoryRepository(AbstractRepository):
                 year_list.append(book.release_year)
 
         return sorted(year_list)
+
+    def get_reviews(self):
+
+        return self.__reviews
 
 
 def read_csv_file(filename: str):

@@ -1,4 +1,3 @@
-
 from flask import Blueprint, render_template, redirect, url_for, session, request
 
 from flask_wtf import FlaskForm
@@ -9,11 +8,14 @@ from password_validator import PasswordValidator
 
 from functools import wraps
 
+import library.utilities.utilities as utilities
+import library.authentication.services as services
 import library.adapters.repository as repo
-import library.auth.services as services
-import library.utilities.utilities as utils
 
-authentication_blueprint = Blueprint('authentication_bp', __name__)
+# Configure Blueprint.
+authentication_blueprint = Blueprint(
+    'authentication_bp', __name__, url_prefix='/authentication')
+
 
 @authentication_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
@@ -37,8 +39,10 @@ def register():
         title='Register',
         form=form,
         user_name_error_message=user_name_not_unique,
-        handler_url=url_for('authentication_bp.register')
+        handler_url=url_for('authentication_bp.register'),
+
     )
+
 
 @authentication_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
@@ -51,6 +55,7 @@ def login():
         # Use the service layer to lookup the user.
         try:
             user = services.get_user(form.user_name.data, repo.repo_instance)
+
             # Authenticate user.
             services.authenticate_user(user['user_name'], form.password.data, repo.repo_instance)
 
@@ -77,6 +82,7 @@ def login():
 
     )
 
+
 @authentication_blueprint.route('/logout')
 def logout():
     session.clear()
@@ -91,11 +97,12 @@ def login_required(view):
         return view(**kwargs)
     return wrapped_view
 
+
 class PasswordValid:
     def __init__(self, message=None):
         if not message:
-            message = u'Password must be at least 8 characters, with an uppercase and lowercase letter,\
-            and a digit'
+            message = u'Your password must be at least 8 characters, and contain an upper case letter,\
+            a lower case letter and a digit'
         self.message = message
 
     def __call__(self, form, field):
@@ -108,14 +115,16 @@ class PasswordValid:
         if not schema.validate(field.data):
             raise ValidationError(self.message)
 
+
 class RegistrationForm(FlaskForm):
     user_name = StringField('Username', [
-        DataRequired(message='Your username is required'),
-        Length(min=3, message='Your username is too short')])
+        DataRequired(message='Your user name is required'),
+        Length(min=3, message='Your user name is too short')])
     password = PasswordField('Password', [
         DataRequired(message='Your password is required'),
         PasswordValid()])
     submit = SubmitField('Register')
+
 
 class LoginForm(FlaskForm):
     user_name = StringField('Username', [
@@ -123,14 +132,3 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', [
         DataRequired()])
     submit = SubmitField('Login')
-
-
-
-
-
-
-
-
-
-
-

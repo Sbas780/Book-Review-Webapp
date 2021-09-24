@@ -2,13 +2,13 @@
 <h1>Publishers</h1>
 <body class="publisher">
   <div
-    class="ui yellow right floated button"
+    class="ui black right floated button"
     onclick="location.href='{{ url_for(url_route, page_number=next_page) }}'"
   >
     <i class="chevron right icon"></i>
   </div>
   <div
-    class="ui yellow left floated button"
+    class="ui black left floated button"
     onclick="location.href='{{ url_for(url_route, page_number=prev_page) }}'"
   >
     <i class="chevron left icon"></i>
@@ -25,13 +25,13 @@
   {% endfor %}
 </body>
 <div
-  class="ui yellow right floated button"
+  class="ui black right floated button"
   onclick="location.href='{{ url_for(url_route, page_number=next_page) }}'"
 >
   <i class="chevron right icon"></i>
 </div>
 <div
-  class="ui yellow left floated button"
+  class="ui black left floated button"
   onclick="location.href='{{ url_for(url_route, page_number=prev_page) }}'"
 >
   <i class="chevron left icon"></i>

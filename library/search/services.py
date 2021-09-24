@@ -10,16 +10,16 @@ from library.utilities.services import (
 )
 
 
-def search_for_items(user_input: str, authors, publishers, years, ebook):
+def search_for_items(repo: AbstractRepository, user_input: str, authors, publishers, years, ebook):
     book_results = []
     user_input = user_input.lower()
-    books = utils.get_list_of_books()
+    books = repo.get_books()
 
     for book in books:
         if (
-            user_input in str(book.book_id)
-            or user_input in book.title.lower()
-            or user_input in book.publisher.name.lower()
+                user_input in str(book.book_id)
+                or user_input in book.title.lower()
+                or user_input in book.publisher.name.lower()
         ):
             book_results.append(book)
 
@@ -33,6 +33,21 @@ def search_for_items(user_input: str, authors, publishers, years, ebook):
         book_results = filter(
             lambda x: any(int(year) == x.release_year for year in years), book_results
         )
+
+    if ebook == "True":
+        new_results = []
+        for i in book_results:
+            if i.ebook:
+                new_results.append(i)
+        book_results = new_results
+
+    if ebook == "False":
+        new_results = []
+        for i in book_results:
+            if not i.ebook:
+                new_results.append(i)
+
+        book_results = new_results
 
     user_results = []
     if authors:
@@ -52,11 +67,11 @@ def create_search_fields(repo: AbstractRepository, request_args):
     years = get_available_years(repo)
     form = SearchForm(request_args)
     form.publisher.choices = [
-        (publisher.name, publisher.name) for publisher in publishers
-    ] + [("", "Publishers")]
+                                 (publisher.name, publisher.name) for publisher in publishers
+                             ] + [("", "Publishers")]
     form.author.choices = [
-        (author.full_name, author.full_name) for author in authors
-    ] + [("", "Authors")]
+                              (author.full_name, author.full_name) for author in authors
+                          ] + [("", "Authors")]
     form.year.choices = [(year, year) for year in years] + [("", "Release Year")]
     return form
 
