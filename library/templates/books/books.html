@@ -1,47 +1,45 @@
-
-{% extends 'layout.html' %}
-{% block content %}
+{% extends 'layout.html' %} {% block content %}
 <h1 class>Books</h1>
 
-
-
-
-{% include 'pagination.html' %}
-
-
-
-{% for book in book_list %}
+{% include 'pagination.html' %} {% for book in book_list %}
 <section class="ui inverted segment padded">
-<form method="POST" action="">
-    {{ form.add_book }}
-    {{ form.book_id( value=book.book_id ) }}
-</form>
+    {% if session['user_name'] %}
+  {{ user.read_books }}
+  {% if book not in user.read_books %}
+  <form method="POST" action="">
+    {{ form.add_book(class="ui button right floated") }} {{ form.book_id( value=book.book_id ) }}
+  </form>
+  {% else %}
+  wow
+  {% endif %}
+  {% else %}
+<div class="ui label right floated">You must be logged in to add this book to you read list</div>
+  {% endif %}
 
-<a href="{{url_for('browser_bp.book_extend', book_id=book.book_id)}}"><h3>{{ book.title }}</h3></a>
-    <p></p>
-<p>Book ID:&nbsp; {{ book.book_id }}</p>
-<p>Release year:&nbsp; {{ book.release_year }}</p>
-<p>Publisher name:&nbsp; {{ book.publisher.name }}</p>
-    <div>
-{% if book.ebook == False %}
+  <a href="{{url_for('browser_bp.book_extend', book_id=book.book_id)}}"
+    ><h3>{{ book.title }}</h3></a
+  >
+  <p></p>
+    <img class="ui right aligned" src={{book.image}}>
+  <p>Book ID:&nbsp; {{ book.book_id }}</p>
+  <p>Release year:&nbsp; {{ book.release_year }}</p>
+  <p>Publisher name:&nbsp; {{ book.publisher.name }}</p>
+  <div>
+    {% if book.ebook == False %}
 
-<p class="ui label red">Ebook: No</p>
-{% else %}
-<p class="ui label green">Ebook: Yes</p>
-{% endif %}
-        </div>
-<br>
- {% for i in book.authors %}
+    <p class="ui label red">Ebook: No</p>
+    {% else %}
+    <p class="ui label green">Ebook: Yes</p>
+    {% endif %}
+  </div>
+  <br />
+  {% for i in book.authors %}
 
-<div class="ui horizontal list">
+  <div class="ui horizontal list">
     <a class="ui blue label">Author:&nbsp; {{ i.full_name }}</a>
-</div>
+  </div>
 
-{% endfor %}
-  </section>
+  {% endfor %}
+</section>
 
-{% endfor %}
-
-{% include 'pagination.html' %}
-{% endblock %}
-
+{% endfor %} {% include 'pagination.html' %} {% endblock %}

@@ -116,6 +116,7 @@ class Book:
         self.__release_year = None
         self.__ebook = False
         self.__num_pages = None
+        self.__image = None
 
     @property
     def book_id(self) -> int:
@@ -205,6 +206,13 @@ class Book:
         if isinstance(num_pages, int) and num_pages >= 0:
             self.__num_pages = num_pages
 
+    @property
+    def image(self):
+        return self.__image
+
+    @image.setter
+    def image(self, image):
+        self.__image = image
     def __repr__(self):
         return f'<Book {self.title}, book id = {self.book_id}>'
 

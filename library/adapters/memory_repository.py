@@ -8,8 +8,8 @@ from library.domain.model import *
 from library.adapters.jsondatareader import BooksJSONReader
 import json
 
-class MemoryRepository(AbstractRepository):
 
+class MemoryRepository(AbstractRepository):
     def __init__(self):
         self.__books = list()
         self.__authors = list()
@@ -41,7 +41,14 @@ class MemoryRepository(AbstractRepository):
         self.__users.append(user)
 
     def get_user(self, user_name):
-        return next((user for user in self.__users if user.user_name.lower() == user_name.lower()), None)
+        return next(
+            (
+                user
+                for user in self.__users
+                if user.user_name.lower() == user_name.lower()
+            ),
+            None,
+        )
 
     def has_book(self, author: Author) -> bool:
         for book in self.__books:
@@ -71,7 +78,6 @@ class MemoryRepository(AbstractRepository):
                     self.__available_author.append(author)
         return self.__available_author
 
-
     def get_book_by_id(self, book_id):
         for book in self.__books:
             if str(book.book_id) == book_id:
@@ -84,18 +90,17 @@ class MemoryRepository(AbstractRepository):
                 results.append(items)
         return results
 
-    def add_reviews(self, review_text: str, rating: int, book:Book, user_name):
+    def add_reviews(self, review_text: str, rating: int, book: Book, user_name):
         user = self.get_user(user_name)
         new_review = Review(book, review_text, rating)
         user.add_review(new_review)
         new_review.user_name = user_name
         self.__reviews.append(new_review)
 
-
     def chunks(self, data_array: [], per_page: int):
         if len(data_array) > per_page:
             for i in range(0, len(data_array), per_page):
-                yield data_array[i:i + per_page]
+                yield data_array[i : i + per_page]
         else:
             yield data_array
 
@@ -109,7 +114,7 @@ class MemoryRepository(AbstractRepository):
 
 
 def read_csv_file(filename: str):
-    with open(filename, encoding='utf-8-sig') as infile:
+    with open(filename, encoding="utf-8-sig") as infile:
         reader = csv.reader(infile)
 
         # Read first line of the the CSV file.
@@ -123,15 +128,16 @@ def read_csv_file(filename: str):
 
 
 def load_books(data_path: Path, repo: MemoryRepository):
-    authors = str(data_path / 'book_authors_excerpt.json')
-    comic_books = str(data_path / 'comic_books_excerpt.json')
+    authors = str(data_path / "book_authors_excerpt.json")
+    comic_books = str(data_path / "comic_books_excerpt.json")
     reader_instance = BooksJSONReader(comic_books, authors)
     reader_instance.read_json_files()
     for book in reader_instance.dataset_of_books:
         repo.add_book(book)
 
+
 def load_authors(data_path: Path, repo: AbstractRepository):
-    authors_file = str(data_path / 'book_authors_excerpt.json')
+    authors_file = str(data_path / "book_authors_excerpt.json")
     file = open(authors_file)
     authors_file_content = file.readlines()
     for authors in authors_file_content:
@@ -139,19 +145,16 @@ def load_authors(data_path: Path, repo: AbstractRepository):
         new_author = Author(int(temp_dict["author_id"]), temp_dict["name"])
         repo.add_author(new_author)
 
+
 def load_users(data_path: Path, repo: MemoryRepository):
     users = dict()
 
     users_filename = str(Path(data_path) / "users.csv")
     for data_row in read_csv_file(users_filename):
-        user = User(
-            user_name=data_row[1],
-            password=generate_password_hash(data_row[2])
-        )
+        user = User(user_name=data_row[1], password=generate_password_hash(data_row[2]))
         repo.add_user(user)
         users[data_row[0]] = user
     return users
-
 
 
 def populate(data_path: Path, repo: MemoryRepository):

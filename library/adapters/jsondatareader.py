@@ -50,6 +50,8 @@ class BooksJSONReader:
             if book_json['num_pages'] != "":
                 book_instance.num_pages = int(book_json['num_pages'])
 
+            if book_json['image_url'] != "":
+                book_instance.image = book_json['image_url']
             # extract the author ids:
             list_of_authors_ids = book_json['authors']
             for author_id in list_of_authors_ids:
