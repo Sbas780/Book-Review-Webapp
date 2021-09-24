@@ -6,13 +6,12 @@
   >
 </section>
 {% if session['user_name'] %}
-<form
-  class="ui inverted segment padded"
-  method="POST"
-  action="{{ url_for('browser_bp.reviews', book_id=book.book_id) }}"
->
-  {{ form.csrf_token }} {{ form.rating.label }} {{ form.rating }} {{
-  form.review.label }} {{ form.review }} {{ form.submit }}
+<form class="ui inverted segment padded" method="POST" action="{{ url_for('browser_bp.reviews', book_id=book.book_id) }}">
+     {{ form.csrf_token }}
+    <p>{{ form.rating.label }}&ensp;{{ form.rating }}</p>
+     {{ form.review.label }}
+    <p>{{ form.review }}</p>
+     {{ form.submit }}
 </form>
 {% else %} You must be logged in to submit a review. {% endif %} {% for review
 in reviews %}
