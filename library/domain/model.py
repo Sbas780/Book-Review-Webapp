@@ -213,6 +213,7 @@ class Book:
     @image.setter
     def image(self, image):
         self.__image = image
+
     def __repr__(self):
         return f'<Book {self.title}, book id = {self.book_id}>'
 

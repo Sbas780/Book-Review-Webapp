@@ -37,12 +37,12 @@
 
       {% else %}
       <a
-        class="item {{ 'active' if request.path == '/login'}}"
+        class="item {{ 'active' if request.path == '/authentication/login'}}"
         href="{{ url_for('authentication_bp.login')}}"
         >Login</a
       >
       <a
-        class="item {{ 'active' if request.path == '/register'}}"
+        class="item {{ 'active' if request.path == '/authentication/register'}}"
         href="{{ url_for('authentication_bp.register')}}"
         >Register</a
       >
