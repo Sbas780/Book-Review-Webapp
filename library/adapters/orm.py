@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    Table, MetaData, Column, Integer, String, Date, DateTime,
+    Table, MetaData, Column, Integer, String, Date, DateTime, func,
     ForeignKey
 )
 from sqlalchemy.orm import mapper, relationship, synonym
@@ -46,3 +46,16 @@ books_authors = Table(
     Column('book_id', ForeignKey('books.id'), primary_key=True),
     Column('author_id', ForeignKey('authors.id'), primary_key=True)
 )
+
+reviews = Table(
+    'reviews', metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('user_id', ForeignKey('users.id')),
+    Column('book_id', ForeignKey('movies.id'), nullable=False),
+    Column('review_text', String, nullable=False),
+    Column('rating', Integer, nullable=False),
+    Column('timestamp', DateTime, nullable=False, server_default=func.now())
+)
+
+
+
