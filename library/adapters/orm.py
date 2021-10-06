@@ -57,5 +57,7 @@ reviews = Table(
     Column('timestamp', DateTime, nullable=False, server_default=func.now())
 )
 
-
-
+def map_model_to_tables():
+    mapper(model.User, users_table, property={
+        '_User_user_name': users_table.c.user_name
+    })
