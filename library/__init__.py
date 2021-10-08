@@ -2,7 +2,7 @@
 from pathlib import Path
 from flask import Flask
 import library.adapters.repository as repo
-from library.adapters.memory_repository import MemoryRepository, populate
+from library.adapters.memory_repository import MemoryRepository
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, clear_mappers
 from sqlalchemy.pool import NullPool
