@@ -44,9 +44,9 @@ class SessionContextManager:
             self.__session.close()
 
 
-class SqlAlchemyRepository(AbstractRepository, ABC):
+class SqlAlchemyRepository(AbstractRepository):
 
-    def __int__(self, session_factory):
+    def __init__(self, session_factory):
         self._session_cm = SessionContextManager(session_factory)
 
     def close_session(self):
@@ -55,14 +55,73 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     def reset_session(self):
         self._session_cm.reset_session()
 
-    def add_user(self, user: User):
-        with self._session_cm as scm:
-            scm.session.add(user)
-            scm.commit()
-
-
     def get_books(self) -> list[Book]:
         with self._session_cm as scm:
             return scm.session.query(Book).all()
 
+    def add_book(self, book: Book):
+        with self._session_cm as scm:
+            scm.session.add(book)
+            scm.commit()
+
+    def get_authors(self) -> list[Author]:
+        return []
+
+    def add_author(self, author: Author):
+        with self._session_cm as scm:
+            scm.session.add(author)
+            scm.commit()
+
+    def get_number_of_books(self) -> int:
+        raise NotImplementedError
+
+    def get_users(self) -> list[User]:
+        return []
+
+    def add_user(self, user: User):
+        raise NotImplementedError
+
+    def get_user(self, user_name) -> User or None:
+        raise NotImplementedError
+
+    def has_book(self, author: Author) -> bool:
+        raise NotImplementedError
+
+    def get_search_results(self) -> list[Book]:
+        return []
+
+    def set_search_results(self, array):
+        raise NotImplementedError
+
+    def clear_search_results(self):
+        raise NotImplementedError
+
+    def get_publishers(self) -> list[Publisher]:
+        with self._session_cm as scm:
+            return scm.session.query(Publisher).all()
+
+    def get_available_authors(self):
+        return []
+
+    def get_book_by_id(self, book_id):
+        return "Yes"
+
+    def get_reviews_by_book(self, book: Book):
+        raise NotImplementedError
+
+    def add_reviews(self, review_text: str, rating: int, book: Book, user_name):
+        raise NotImplementedError
+
+    def chunks(self, data_array: [], per_page: int):
+        if len(data_array) > per_page:
+            for i in range(0, len(data_array), per_page):
+                yield data_array[i: i + per_page]
+        else:
+            yield data_array
+
+    def get_available_years(self):
+        return "Yes"
+
+    def get_reviews(self):
+        return "Yes"
 

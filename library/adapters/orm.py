@@ -28,8 +28,8 @@ reviews = Table(
 books = Table(
     'books', metadata,
     Column('book_id', Integer, primary_key=True),
-    Column('title', String, nullabe=False),
-    Column('image', String, nullabel=False),
+    Column('title', Text),
+    Column('image', String, nullable=False),
     Column('publisher', ForeignKey('publishers.publisher_id')),
     Column('release_year', String, nullable=True),
     Column('ebook', Boolean, default=False),
@@ -61,16 +61,16 @@ book_authors = Table(
     Column('author_id', ForeignKey('authors.unique_id'), primary_key=True)
 )
 
-def map_mode_to_tables():
+def map_model_to_tables():
 
-    mapper(User, users, property={
+    mapper(User, users, properties={
         '_User_user_name': users.c.user_name,
         '_User_password': users.c.password,
-        '_User_pages_read': users.c.page_read,
-        '_User_read_books': relationship(Book, secodary=user_read_books)
+        '_User_pages_read': users.c.pages_read,
+        '_User_read_books': relationship(Book, secondary=user_read_books)
     })
 
-    mapper(Book, books, property={
+    mapper(Book, books, properties={
         '_Books_book_id': books.c.book_id,
         '_Books_title': books.c.title,
         '_Books_image': books.c.image,
@@ -80,6 +80,15 @@ def map_mode_to_tables():
         '_Books_publisher': relationship(Publisher),
         '_Books_authors': relationship(Author, secondary=book_authors),
 
+    })
+
+    mapper(Publisher, publishers, properties={
+        '_Publisher_name': publishers.c.name
+    })
+
+    mapper(Author, authors, properties={
+        '_Author_unique_id': authors.c.unique_id,
+        '_Author_full_name': authors.c.full_name
     })
 
 
