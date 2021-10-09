@@ -79,7 +79,9 @@ class SqlAlchemyRepository(AbstractRepository):
         return []
 
     def add_user(self, user: User):
-        raise NotImplementedError
+        with self._session_cm as scm:
+            scm.session.add(user)
+            scm.commit()
 
     def get_user(self, user_name) -> User or None:
         raise NotImplementedError
