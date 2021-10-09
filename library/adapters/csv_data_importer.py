@@ -48,6 +48,7 @@ def load_users(data_path: Path, repo: AbstractRepository):
     users_filename = str(Path(data_path) / "users.csv")
     for data_row in read_csv_file(users_filename):
         user = User(user_name=data_row[1], password=generate_password_hash(data_row[2]))
+        print(user)
         repo.add_user(user)
         users[data_row[0]] = user
     return users

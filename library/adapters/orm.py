@@ -7,15 +7,15 @@ from library.domain.model import *
 
 metadata = MetaData()
 
-users = Table(
+users_table = Table(
     'users', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('user_name', String(255), unique=True, nullable=False),
     Column('password', String(255), nullable=False),
-    Column('pages_read', Integer, nullable=False, server_default="0")
+    Column('pages_read', Integer)
 )
 
-reviews = Table(
+reviews_table = Table(
     'reviews', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('user_id', ForeignKey('users.id')),
@@ -25,7 +25,7 @@ reviews = Table(
     Column('timestamp', DateTime, nullable=False, server_default=func.now()),
 )
 
-books = Table(
+books_table = Table(
     'books', metadata,
     Column('book_id', Integer, primary_key=True),
     Column('title', Text),
@@ -37,17 +37,12 @@ books = Table(
     Column('description', Text)
 )
 
-authors = Table(
+authors_table = Table(
     'authors', metadata,
     Column('unique_id', Integer, primary_key=True),
     Column('full_name', String, nullable=False, unique=True),
 )
 
-publishers = Table(
-    'publishers', metadata,
-    Column('publisher_id', Integer, primary_key=True, autoincrement=True),
-    Column('name', String, nullable=False)
-)
 
 user_read_books = Table(
     'user_read_books', metadata,
@@ -63,32 +58,29 @@ book_authors = Table(
 
 def map_model_to_tables():
 
-    mapper(User, users, properties={
-        '_User_user_name': users.c.user_name,
-        '_User_password': users.c.password,
-        '_User_pages_read': users.c.pages_read,
-        '_User_read_books': relationship(Book, secondary=user_read_books)
-    })
-
-    mapper(Book, books, properties={
-        '_Books_book_id': books.c.book_id,
-        '_Books_title': books.c.title,
-        '_Books_image': books.c.image,
-        '_Books_release_year': books.c.release_year,
-        '_Books_description': books.c.description,
-        '_Books_ebook': books.c.ebook,
-        '_Books_publisher': relationship(Publisher),
-        '_Books_authors': relationship(Author, secondary=book_authors),
+    mapper(User, users_table, properties={
+        '_User__user_name': users_table.c.user_name,
+        '_User__password': users_table.c.password,
+        '_User__pages_read': users_table.c.pages_read
 
     })
 
-    mapper(Publisher, publishers, properties={
-        '_Publisher_name': publishers.c.name
+    mapper(Book, books_table, properties={
+        '_Book__book_id': books_table.c.book_id,
+        '_Book__title': books_table.c.title,
+        '_Book__image': books_table.c.image,
+        '_Book__release_year': books_table.c.release_year,
+        '_Book__description': books_table.c.description,
+        '_Book__ebook': books_table.c.ebook,
+        '_Book__publisher': relationship(Publisher),
+        '_Book__authors': relationship(Author, secondary=book_authors),
+
     })
 
-    mapper(Author, authors, properties={
-        '_Author_unique_id': authors.c.unique_id,
-        '_Author_full_name': authors.c.full_name
+
+    mapper(Author, authors_table, properties={
+        '_Author__unique_id': authors_table.c.unique_id,
+        '_Author__full_name': authors_table.c.full_name
     })
 
 

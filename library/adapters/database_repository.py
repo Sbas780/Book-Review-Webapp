@@ -79,12 +79,20 @@ class SqlAlchemyRepository(AbstractRepository):
         return []
 
     def add_user(self, user: User):
+        print("Adding user", user)
         with self._session_cm as scm:
             scm.session.add(user)
             scm.commit()
 
     def get_user(self, user_name) -> User or None:
-        raise NotImplementedError
+        user = None
+        try:
+            user = self._session_cm.session.query(User).filter(User._User__user_name == user_name).one()
+        except NoResultFound:
+            # Ignore any exception and return None.
+            pass
+
+        return user
 
     def has_book(self, author: Author) -> bool:
         raise NotImplementedError
