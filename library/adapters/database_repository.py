@@ -92,7 +92,7 @@ class SqlAlchemyRepository(AbstractRepository):
             # Ignore any exception and return None.
             pass
 
-        return user
+        return None
 
     def has_book(self, author: Author) -> bool:
         raise NotImplementedError

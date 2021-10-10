@@ -24,23 +24,31 @@ reviews_table = Table(
     Column('rating', Integer, nullable=False),
     Column('timestamp', DateTime, nullable=False, server_default=func.now()),
 )
+authors_table = Table(
+    'authors', metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('unique_id', Integer, primary_key=True),
+    Column('full_name', String, nullable=False),
+)
 
 books_table = Table(
     'books', metadata,
     Column('book_id', Integer, primary_key=True),
     Column('title', Text),
     Column('image', String, nullable=False),
-    Column('publisher', ForeignKey('publishers.publisher_id')),
+    Column('description', String, nullable=False),
     Column('release_year', String, nullable=True),
     Column('ebook', Boolean, default=False),
     Column('image', String, nullable=False),
-    Column('description', Text)
+    Column('publisher', ForeignKey('publisher_table.id'))
+
 )
 
-authors_table = Table(
-    'authors', metadata,
-    Column('unique_id', Integer, primary_key=True),
-    Column('full_name', String, nullable=False, unique=True),
+publisher_table = Table(
+    'publisher_table', metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('name', String, unique=True, nullable=False)
+
 )
 
 
@@ -52,8 +60,9 @@ user_read_books = Table(
 
 book_authors = Table(
     'book_authors', metadata,
+    Column('author_id', ForeignKey('authors.id'), primary_key=True),
     Column('book_id', ForeignKey('books.book_id'), primary_key=True),
-    Column('author_id', ForeignKey('authors.unique_id'), primary_key=True)
+
 )
 
 def map_model_to_tables():
@@ -72,7 +81,6 @@ def map_model_to_tables():
         '_Book__release_year': books_table.c.release_year,
         '_Book__description': books_table.c.description,
         '_Book__ebook': books_table.c.ebook,
-        '_Book__publisher': relationship(Publisher),
         '_Book__authors': relationship(Author, secondary=book_authors),
 
     })
@@ -81,6 +89,10 @@ def map_model_to_tables():
     mapper(Author, authors_table, properties={
         '_Author__unique_id': authors_table.c.unique_id,
         '_Author__full_name': authors_table.c.full_name
+    })
+
+    mapper(Publisher, publisher_table, properties={
+        '_Publisher__name': publisher_table.c.name
     })
 
 
