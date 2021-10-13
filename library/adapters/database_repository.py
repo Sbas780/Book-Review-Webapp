@@ -94,6 +94,12 @@ class SqlAlchemyRepository(AbstractRepository):
 
         return None
 
+    def add_publisher(self, publisher):
+        with self._session_cm as scm:
+            scm.session.add(publisher)
+            scm.commit()
+
+
     def has_book(self, author: Author) -> bool:
         raise NotImplementedError
 

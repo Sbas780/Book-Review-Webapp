@@ -17,7 +17,7 @@ def read_csv_file(filename: str):
         headers = next(reader)
 
         # Read remaining rows from the CSV file.
-        for row in reader:
+        for row in reader:  
             # Strip any leading/trailing white space from data read.
             row = [item.strip() for item in row]
             yield row
@@ -28,8 +28,8 @@ def load_books(data_path: Path, repo: AbstractRepository):
     comic_books = str(data_path / "comic_books_excerpt.json")
     reader_instance = BooksJSONReader(comic_books, authors)
     reader_instance.read_json_files()
-    print(len(reader_instance.dataset_of_books))
     for book in reader_instance.dataset_of_books:
+        repo.add_publisher(book.publisher)
         repo.add_book(book)
 
 
@@ -41,7 +41,6 @@ def load_authors(data_path: Path, repo: AbstractRepository):
     for authors in authors_file_content:
         temp_dict = json.loads(authors)
         new_author = Author(int(temp_dict["author_id"]), temp_dict["name"])
-        print(new_author)
         repo.add_author(new_author)
 
 
@@ -51,7 +50,6 @@ def load_users(data_path: Path, repo: AbstractRepository):
     users_filename = str(Path(data_path) / "users.csv")
     for data_row in read_csv_file(users_filename):
         user = User(user_name=data_row[1], password=generate_password_hash(data_row[2]))
-        print(user)
         repo.add_user(user)
         users[data_row[0]] = user
     return users

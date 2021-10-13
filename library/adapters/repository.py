@@ -92,3 +92,7 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_reviews(self):
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_publisher(self, publisher):
+        raise NotImplementedError

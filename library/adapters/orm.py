@@ -28,7 +28,7 @@ authors_table = Table(
     'authors', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('unique_id', Integer, primary_key=True),
-    Column('full_name', String, nullable=False),
+    Column('full_name', String, nullable=False, unique=False),
 )
 
 books_table = Table(
@@ -47,23 +47,22 @@ books_table = Table(
 publisher_table = Table(
     'publisher_table', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('name', String, unique=True, nullable=False)
-
+    Column('name', String,)
 )
 
 
 user_read_books = Table(
     'user_read_books', metadata,
-    Column('user_id', ForeignKey('users.id'), primary_key=True),
-    Column('book_id', ForeignKey('books.book_id'), primary_key=True)
+    Column('user_id', ForeignKey('users.id')),
+    Column('book_id', ForeignKey('books.book_id'))
 )
 
 book_authors = Table(
     'book_authors', metadata,
-    Column('author_id', ForeignKey('authors.id'), primary_key=True),
-    Column('book_id', ForeignKey('books.book_id'), primary_key=True),
-
+    Column('author_id', ForeignKey('authors.id')),
+    Column('book_id', ForeignKey('books.book_id')),
 )
+
 
 def map_model_to_tables():
 
@@ -71,7 +70,6 @@ def map_model_to_tables():
         '_User__user_name': users_table.c.user_name,
         '_User__password': users_table.c.password,
         '_User__pages_read': users_table.c.pages_read
-
     })
 
     mapper(Book, books_table, properties={
@@ -81,8 +79,8 @@ def map_model_to_tables():
         '_Book__release_year': books_table.c.release_year,
         '_Book__description': books_table.c.description,
         '_Book__ebook': books_table.c.ebook,
-        '_Book__authors': relationship(Author, secondary=book_authors),
-
+        '_authors': relationship(Author, secondary=book_authors),
+        '_publisher': relationship(Publisher)
     })
 
 
@@ -92,7 +90,7 @@ def map_model_to_tables():
     })
 
     mapper(Publisher, publisher_table, properties={
-        '_Publisher__name': publisher_table.c.name
+        '_name': publisher_table.c.name
     })
 
 
