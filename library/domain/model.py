@@ -248,7 +248,7 @@ class Review:
             raise ValueError
 
         self.__timestamp = datetime.now()
-        self.__user_name = "Anonymous"
+        self.__user = None
 
     @property
     def book(self) -> Book:
@@ -267,12 +267,12 @@ class Review:
         return self.__timestamp
 
     @property
-    def user_name(self):
+    def user(self):
         return self.__user_name
 
-    @user_name.setter
-    def user_name(self, user_name):
-        self.__user_name = user_name
+    @user.setter
+    def user(self, user):
+        self.__user_name = user
 
 
 

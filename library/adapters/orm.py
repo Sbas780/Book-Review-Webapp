@@ -29,7 +29,6 @@ books_table = Table(
     Column('description', String(255), nullable=True),
     Column('publisher_id', ForeignKey('publishers.publisher_id'), nullable=True),
     Column('release_year', Integer),
-    # NOTE: because release_year is an integer, if year = "N/A" database stores it as NULL
     Column('num_pages', Integer)
 )
 
@@ -81,7 +80,8 @@ def map_model_to_tables():
         '_Book__release_year': books_table.c.release_year,
         '_Book__reviews': relationship(model.Review, backref='_Review__book'),
         '_Book__authors': relationship(model.Author, secondary=book_authors),
-        '_Book__num_pages': books_table.c.num_pages
+        '_Book__num_pages': books_table.c.num_pages,
+
     })
     mapper(model.Author, authors_table, properties={
         '_Author__unique_id': authors_table.c.unique_id,

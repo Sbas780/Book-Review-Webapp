@@ -65,6 +65,7 @@ def create_search_fields(repo: AbstractRepository, request_args):
     publishers = get_publishers(repo)
     authors = get_available_authors(repo)
     years = get_available_years(repo)
+    print(years)
     form = SearchForm(request_args)
     form.publisher.choices = [
                                  (publisher.name, publisher.name) for publisher in publishers

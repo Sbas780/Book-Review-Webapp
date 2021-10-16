@@ -114,8 +114,9 @@ class MemoryRepository(AbstractRepository):
         return sorted(year_list)
 
     def get_reviews(self):
-
         return self.__reviews
+
+
 
 
 

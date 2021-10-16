@@ -180,11 +180,11 @@ def add_readlist():
     if request.method == "POST":
         book_id = request.form["book_id"]
         base_url = request.form["base_url"]
-        book = utils.get_book_by_id(book_id)
-        user = session["user_name"]
-        user = utils.get_user(user)
-        if book not in user.read_books:
-            user.read_a_book(book)
+        book = repo.repo_instance.get_book_by_id(book_id)
+        user_name = session["user_name"]
+        user = repo.repo_instance.get_user(user_name)
+        repo.repo_instance.add_to_readlist(user, book)
+        user.read_a_book(book)
         return redirect(base_url)
 
 class ProfanityFree:

@@ -86,7 +86,7 @@ def load_books_and_authors(data_path: Path, repo: AbstractRepository, database_m
                 review_text=data_row[2],
                 rating=int(data_row[3]),
             )
-            review.user_name = user.user_name
+            review.user = user
 
             if review not in list_of_reviews:
                 list_of_reviews.append(review)

@@ -2,7 +2,7 @@ from abc import ABC
 from datetime import date
 from typing import List
 
-from sqlalchemy import desc, asc
+from sqlalchemy import desc, asc, text
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 
 from sqlalchemy.orm import scoped_session
@@ -43,44 +43,6 @@ class SessionContextManager:
         if not self.__session is None:
             self.__session.close()
 
-    def get_book_by_id(self, book_id):
-        pass
-
-    def get_authors(self) -> list[Author]:
-        pass
-
-    def get_number_of_books(self) -> int:
-        pass
-
-    def get_reviews(self):
-        pass
-
-    def get_available_authors(self):
-        pass
-
-    def get_available_years(self):
-        pass
-
-    def get_publishers(self) -> list[Publisher]:
-        pass
-
-    def get_users(self) -> list[User]:
-        pass
-
-    def get_search_results(self) -> list[Book]:
-        pass
-
-    def get_reviews_by_book(self, book: Book):
-        pass
-
-    def get_user(self, user_name) -> User or None:
-        pass
-
-    def has_book(self, author: Author) -> bool:
-        pass
-
-    def chunks(self, data_array: [], per_page: int):
-        pass
 
 
 
@@ -99,7 +61,10 @@ class SqlAlchemyRepository(AbstractRepository):
 
     def add_book(self, book: Book):
         with self._session_cm as scm:
-            scm.session.add(book)
+            try:
+                scm.session.add(book)
+            except:
+                pass
             scm.commit()
 
     def add_publisher(self, publisher):
@@ -151,11 +116,16 @@ class SqlAlchemyRepository(AbstractRepository):
         return users
 
     def get_available_years(self):
-        years = self._session_cm.session.query_property(Book.release_year)
-        return years
+        data = self._session_cm.session.query(Book).all()
+        new_list = []
+        for items in data:
+            if items.release_year != None:
+                new_list.append(items.release_year)
+        return new_list
+
 
     def get_reviews(self):
-        reviews  = self._session_cm.session.query(Review).all()
+        reviews = self._session_cm.session.query(Review).all()
         return reviews
 
     def get_publishers(self) -> list[Publisher]:
@@ -166,13 +136,7 @@ class SqlAlchemyRepository(AbstractRepository):
         pass
 
     def get_user(self, user_name) -> User or None:
-        user = None
-        try:
-            user = self._session_cm.session.query(User).filter(User._User__user_name == user_name).one()
-        except NoResultFound:
-            pass
-
-        return user
+        return self._session_cm.session.query(User).filter(User._User__user_name == user_name).one()
 
 
     def get_reviews_by_book(self, book: Book):
@@ -191,5 +155,16 @@ class SqlAlchemyRepository(AbstractRepository):
         pass
 
     def chunks(self, data_array: [], per_page: int):
-        pass
+        if len(data_array) > per_page:
+            for i in range(0, len(data_array), per_page):
+                yield data_array[i: i + per_page]
+        else:
+            yield data_array
 
+    def add_to_readlist(self, user, book):
+        current_user_id = user.id
+        current_book_id = book.book_id
+
+        sql_statement = text("""INSERT INTO user_reading_lists(user_id, book_id)  VALUES(:user_id, :book_id)""")
+        self._session_cm.session.execute(sql_statement, {"user_id": current_user_id, "book_id": current_book_id})
+        self._session_cm.session.commit()
