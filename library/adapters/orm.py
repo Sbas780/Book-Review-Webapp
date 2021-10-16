@@ -18,7 +18,7 @@ users_table = Table(
 
 publishers_table = Table(
     'publishers', metadata,
-    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('publisher_id', Integer, primary_key=True, autoincrement=True),
     Column('name', String(255))
 )
 
@@ -27,7 +27,7 @@ books_table = Table(
     Column('book_id', Integer, primary_key=True, nullable=False),
     Column('title', String(255), nullable=False),
     Column('description', String(255), nullable=True),
-    Column('publisher_id', ForeignKey('publishers.id'), nullable=True),
+    Column('publisher_id', ForeignKey('publishers.publisher_id'), nullable=True),
     Column('release_year', Integer),
     # NOTE: because release_year is an integer, if year = "N/A" database stores it as NULL
     Column('num_pages', Integer)
@@ -35,7 +35,7 @@ books_table = Table(
 
 authors_table = Table(
     'authors', metadata,
-    Column('author_id', Integer, primary_key=True),
+    Column('unique_id', Integer, primary_key=True),
     Column('full_name', String(255)),
 )
 
@@ -54,7 +54,7 @@ book_authors = Table(  # ONE book, MANY authors
     'book_authors', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('book_id', ForeignKey('books.book_id')),
-    Column('author_id', ForeignKey('authors.author_id'))
+    Column('author_id', ForeignKey('authors.unique_id'))
 )
 
 user_reading_lists = Table(  # ONE user, MANY books
@@ -84,11 +84,11 @@ def map_model_to_tables():
         '_Book__num_pages': books_table.c.num_pages
     })
     mapper(model.Author, authors_table, properties={
-        '_Author__unique_id': authors_table.c.author_id,
+        '_Author__unique_id': authors_table.c.unique_id,
         '_Author__full_name': authors_table.c.full_name,
     })
     mapper(model.Publisher, publishers_table, properties={
-        '_Publisher__id': publishers_table.c.id,
+        '_Publisher__id': publishers_table.c.publisher_id,
         '_Publisher__name': publishers_table.c.name
     })
     mapper(model.Review, reviews_table, properties={

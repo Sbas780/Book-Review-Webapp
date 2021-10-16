@@ -151,7 +151,7 @@ class SqlAlchemyRepository(AbstractRepository):
         return users
 
     def get_available_years(self):
-        years = self._session_cm.session.query_property(Book.release_year).all()
+        years = self._session_cm.session.query_property(Book.release_year)
         return years
 
     def get_reviews(self):
