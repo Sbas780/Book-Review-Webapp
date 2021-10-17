@@ -83,7 +83,6 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.commit()
 
     def add_review(self, review):
-        print("NSNSNS")
         with self._session_cm as scm:
             scm.session.add(review)
             scm.commit()

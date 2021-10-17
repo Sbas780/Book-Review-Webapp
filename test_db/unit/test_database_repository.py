@@ -19,7 +19,7 @@ def test_repository_can_add_a_user(session_factory):
 
 def test_repository_can_retrieve_a_user(session_factory):
     repo = SqlAlchemyRepository(session_factory)
-    user = repo.get_user('fmercury')
+    user = repo.get_user()
 
     assert user == User('fmercury', '8734gfe2058v')
 
