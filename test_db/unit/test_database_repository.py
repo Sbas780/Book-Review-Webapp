@@ -19,7 +19,7 @@ def test_repository_can_add_a_user(session_factory):
 
 def test_repository_can_retrieve_a_user(session_factory):
     repo = SqlAlchemyRepository(session_factory)
-    user = repo.get_user()
+    user = repo.get_user("fmercury")
 
     assert user == User('fmercury', '8734gfe2058v')
 
@@ -34,7 +34,7 @@ def test_repository_can_get_books(session_factory):
     repo = SqlAlchemyRepository(session_factory)
     books = repo.get_books()
 
-    assert books == [Book(1, "Test Book One"), Book(2, "Test Book Two"), Book(3, "Test Book Three")]
+    assert len(books) == 20
 
 
 def test_repository_can_add_book(session_factory):

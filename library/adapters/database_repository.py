@@ -141,7 +141,6 @@ class SqlAlchemyRepository(AbstractRepository):
         except NoResultFound:
             return None
 
-
     def get_reviews_by_book(self, book: Book):
         current_book_id = book.book_id
         new_list = []
@@ -175,7 +174,6 @@ class SqlAlchemyRepository(AbstractRepository):
     def add_to_readlist(self, user, book):
         current_user_id = user.id
         current_book_id = book.book_id
-
         sql_statement = text("""INSERT INTO user_reading_lists(user_id, book_id)  VALUES(:user_id, :book_id)""")
         self._session_cm.session.execute(sql_statement, {"user_id": current_user_id, "book_id": current_book_id})
         self._session_cm.session.commit()
