@@ -109,6 +109,6 @@ def test_repository_get_available_years(in_memory_repo):
     assert years == [2019, 2020, 2021]
 
 
-def tes_repository_chunks(in_memory_repo):
+def test_repository_chunks(in_memory_repo):
     chunks = in_memory_repo.chunks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 5)
     assert chunks == [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12]]
