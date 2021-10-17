@@ -10,6 +10,7 @@ import library.utilities.utilities as utils
 import library.adapters.repository as repo
 from library.authentication.authentication import login_required
 from library.browser import services
+from library.domain.model import Review
 
 browser_bp = Blueprint("browser_bp", __name__, url_prefix="/browsing")
 
@@ -151,7 +152,8 @@ def book_extend(book_id):
 @login_required
 def reviews(book_id):
     form = ReviewForm()
-    book = utils.get_book_by_id(book_id)
+
+    book = repo.repo_instance.get_book_by_id(book_id)
 
     try:
         user_name = session["user_name"]
@@ -162,6 +164,13 @@ def reviews(book_id):
         services.add_review(
             repo.repo_instance, form.review.data, form.rating.data, book, user_name
         )
+        review = Review(book, form.review.data, form.rating.data)
+
+        user = repo.repo_instance.get_user(user_name)
+        user.add_review(review)
+        review.user = user
+
+        repo.repo_instance.add_review(review)
         return redirect(url_for("browser_bp.reviews", book_id=book_id))
     list_of_reviews = utils.get_review_by_book(book)
 
@@ -178,9 +187,10 @@ def reviews(book_id):
 @login_required
 def add_readlist():
     if request.method == "POST":
-        book_id = request.form["book_id"]
+        book_id = int(request.form["book_id"])
         base_url = request.form["base_url"]
         book = repo.repo_instance.get_book_by_id(book_id)
+
         user_name = session["user_name"]
         user = repo.repo_instance.get_user(user_name)
         repo.repo_instance.add_to_readlist(user, book)

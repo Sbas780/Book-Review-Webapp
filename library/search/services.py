@@ -15,7 +15,9 @@ def search_for_items(repo: AbstractRepository, user_input: str, authors, publish
     user_input = user_input.lower()
     books = repo.get_books()
 
+
     for book in books:
+        print(book.book_id)
         if (
                 user_input in str(book.book_id)
                 or user_input in book.title.lower()

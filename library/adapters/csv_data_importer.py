@@ -54,6 +54,8 @@ def load_books_and_authors(data_path: Path, repo: AbstractRepository, database_m
                 book.book_id,
                 book.title
             )
+            new_book.ebook = book.ebook
+            new_book.num_pages = book.num_pages
             new_book.description = book.description
             if book.release_year is not None:
                 new_book.release_year = book.release_year
@@ -79,15 +81,15 @@ def load_books_and_authors(data_path: Path, repo: AbstractRepository, database_m
             book = [book for book in list_of_books if book.book_id == book_id][0]
 
             user_name = data_row[0]
-            user = repo.get_user(user_name)
 
+            user = repo.get_user(user_name)
             review = Review(
                 book=book,
                 review_text=data_row[2],
                 rating=int(data_row[3]),
             )
             review.user = user
-
+            user.add_review(review)
             if review not in list_of_reviews:
                 list_of_reviews.append(review)
 
@@ -145,6 +147,7 @@ def load_users(data_path: Path, repo: AbstractRepository):
     users_filename = str(Path(data_path) / "users.csv")
     for data_row in read_csv_file(users_filename):
         user = User(user_name=data_row[1], password=generate_password_hash(data_row[2]))
+
         repo.add_user(user)
         users[data_row[0]] = user
     return users

@@ -83,6 +83,7 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.commit()
 
     def add_review(self, review):
+        print("NSNSNS")
         with self._session_cm as scm:
             scm.session.add(review)
             scm.commit()
@@ -98,7 +99,7 @@ class SqlAlchemyRepository(AbstractRepository):
     def get_book_by_id(self, book_id):
         book = None
         try:
-            book = self._session_cm.session.query(Book).filter(Book._Book__book_id == id).one()
+            book = self._session_cm.session.query(Book).filter(Book._Book__book_id == book_id).one()
         except NoResultFound:
             pass
         return book
@@ -119,7 +120,7 @@ class SqlAlchemyRepository(AbstractRepository):
         data = self._session_cm.session.query(Book).all()
         new_list = []
         for items in data:
-            if items.release_year != None:
+            if items.release_year != None and items.release_year not in new_list:
                 new_list.append(items.release_year)
         return new_list
 
@@ -136,11 +137,20 @@ class SqlAlchemyRepository(AbstractRepository):
         pass
 
     def get_user(self, user_name) -> User or None:
+
         return self._session_cm.session.query(User).filter(User._User__user_name == user_name).one()
 
 
     def get_reviews_by_book(self, book: Book):
-        pass
+        current_book_id = book.book_id
+        new_list = []
+        data = self._session_cm.session.query(Review).all()
+        for i in data:
+            print(i)
+            print(i.book.book_id)
+            if i.book.book_id == current_book_id:
+                new_list.append(i)
+        return new_list
 
     def get_number_of_books(self) -> int:
         pass
@@ -168,3 +178,4 @@ class SqlAlchemyRepository(AbstractRepository):
         sql_statement = text("""INSERT INTO user_reading_lists(user_id, book_id)  VALUES(:user_id, :book_id)""")
         self._session_cm.session.execute(sql_statement, {"user_id": current_user_id, "book_id": current_book_id})
         self._session_cm.session.commit()
+

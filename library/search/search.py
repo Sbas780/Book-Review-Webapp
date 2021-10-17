@@ -32,7 +32,7 @@ def search(page_number=0):
 
     books = search_for_items(repo.repo_instance, query, authors, publishers, years, ebook)
 
-    book_chunks = utils.get_list_of_books()
+    book_chunks = list(repo.repo_instance.chunks(books, 5))
 
     page_number = request.args.get("page_number")
     if page_number is None:

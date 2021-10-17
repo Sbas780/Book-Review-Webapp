@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    Table, MetaData, Column, Integer, String, Date, DateTime,
+    Table, MetaData, Column, Integer, String, Date, DateTime, Boolean,
     ForeignKey
 )
 from sqlalchemy.orm import backref, mapper, relationship, synonym
@@ -13,7 +13,9 @@ users_table = Table(
     'users', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('user_name', String(255), unique=True, nullable=False),
-    Column('password', String(255), nullable=False)
+    Column('password', String(255), nullable=False),
+
+
 )
 
 publishers_table = Table(
@@ -29,7 +31,8 @@ books_table = Table(
     Column('description', String(255), nullable=True),
     Column('publisher_id', ForeignKey('publishers.publisher_id'), nullable=True),
     Column('release_year', Integer),
-    Column('num_pages', Integer)
+    Column('num_pages', Integer),
+    Column('ebook', Boolean)
 )
 
 authors_table = Table(
@@ -71,6 +74,8 @@ def map_model_to_tables():
         '_User__password': users_table.c.password,
         '_User__reviews': relationship(model.Review, backref='_Review__user'),
         '_User__read_books': relationship(model.Book, secondary=user_reading_lists),
+
+
     })
     mapper(model.Book, books_table, properties={
         '_Book__book_id': books_table.c.book_id,
@@ -81,6 +86,7 @@ def map_model_to_tables():
         '_Book__reviews': relationship(model.Review, backref='_Review__book'),
         '_Book__authors': relationship(model.Author, secondary=book_authors),
         '_Book__num_pages': books_table.c.num_pages,
+        '_Book__ebook': books_table.c.ebook
 
     })
     mapper(model.Author, authors_table, properties={

@@ -327,8 +327,7 @@ class User:
     def read_a_book(self, book: Book):
         if isinstance(book, Book):
             self.__read_books.append(book)
-            if book.num_pages is not None:
-                self.__pages_read += book.num_pages
+
 
     def add_review(self, review: Review):
         if isinstance(review, Review):
