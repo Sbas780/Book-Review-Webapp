@@ -153,7 +153,7 @@ class SqlAlchemyRepository(AbstractRepository):
         return new_list
 
     def get_number_of_books(self) -> int:
-        pass
+        return self._session_cm.session.query(Book).count()
 
     def has_book(self, author: Author) -> bool:
         pass

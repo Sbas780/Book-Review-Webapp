@@ -39,10 +39,11 @@ def test_repository_can_get_books(session_factory):
 
 def test_repository_can_add_book(session_factory):
     repo = SqlAlchemyRepository(session_factory)
-    new_book = Book(4, "Test Book Four")
-    books = repo.add_book(new_book)
+    new_book = Book(45, "Test Book Four")
+    repo.add_book(new_book)
+    book = repo.get_book_by_id(45)
 
-    assert books == [Book(1, "Test Book One"), Book(2, "Test Book Two"), Book(3, "Test Book Three"), Book(4, "Test Book Four")]
+    assert book == new_book
 
 def test_repository_add_duplicate_book(session_factory):
     repo = SqlAlchemyRepository(session_factory)
@@ -66,34 +67,31 @@ def test_repository_cannot_get_book_by_id(session_factory):
 
     assert book is None
 
-def test_repository_author_has_a_book(session_factory):
-    repo = SqlAlchemyRepository(session_factory)
-    status = repo.has_book(Author(1, "Test Author"))
+# def test_repository_author_has_a_book(session_factory):
+#     repo = SqlAlchemyRepository(session_factory)
+#     status = repo.has_book(Author(1, "Test Author"))
+#
+#     assert status is True
 
-    assert status is True
-
-def test_repository_author_has_no_book(session_factory):
-    repo = SqlAlchemyRepository(session_factory)
-    status = repo.has_book(Author(7, "Test Author Seven"))
-    assert status is False
+# def test_repository_author_has_no_book(session_factory):
+#     repo = SqlAlchemyRepository(session_factory)
+#     status = repo.has_book(Author(7, "Test Author Seven"))
+#     assert status is False
 
 def test_repository_get_number_of_book(session_factory):
     repo = SqlAlchemyRepository(session_factory)
     length = repo.get_number_of_books()
 
-    assert length == 3
+    assert length == 20
+
 
 def test_repository_can_get_available_authors(session_factory):
     repo = SqlAlchemyRepository(session_factory)
     authors = repo.get_available_authors()
+    authors_count = len(authors)
 
-    assert authors == [Author(1, "Test Author"), Author(2, "Test AuthorTwo"), Author(3, "Test Author Three")]
+    assert authors_count == 31
 
-def test_repository_can_get_all_authors(session_factory):
-    repo = SqlAlchemyRepository(session_factory)
-    authors = repo.get_authors()
-
-    assert authors == [Author(1, "Test Author"), Author(2, "Test AuthorTwo"), Author(3, "Test Author Three"), Author(4, "Test Author Four")]
 
 def test_repository_get_publishers(session_factory):
     repo = SqlAlchemyRepository(session_factory)
@@ -104,7 +102,8 @@ def test_repository_can_retrieve_book(session_factory):
     repo = SqlAlchemyRepository(session_factory)
     book = repo.get_book_by_id(13340336)
 
-    # Check that the Book has the expected title.
+    # Check that the Book has the expected tit
+    # le.
     assert book.title == '20th Century Boys, Libro 15: ¡Viva la Expo! (20th Century Boys, #15)'
 
     # Check that the Book is reviewed as expected.
@@ -112,9 +111,9 @@ def test_repository_can_retrieve_book(session_factory):
 
 def test_repository_does_not_retrieve_a_non_existent_book(session_factory):
     repo = SqlAlchemyRepository(session_factory)
-    article = repo.get_book_by_id(321)
+    book = repo.get_book_by_id(321)
 
-    assert article is None
+    assert book is None
 
 
 def test_repository_can_add_author(session_factory):
@@ -127,27 +126,23 @@ def test_repository_can_add_author(session_factory):
 
 def test_repository_can_add_a_review(session_factory):
     repo = SqlAlchemyRepository(session_factory)
-    test_book = repo.get_book_by_id(13340336)
-    user = User('test_user', '123456789')
-    test_review = Review(test_book, "Cool book!", 5, user)
-    repo.add_review(13340336, test_review)
+    test_book = repo.get_book_by_id(27036536)
+    test_review = Review(test_book, "Cool book!", 5)
+    repo.add_review(test_review)
 
-    for book_dictionary in repo.get_reviews():
-        if book_dictionary['book_id'] == 13340336:
-            assert test_review in book_dictionary['reviews']
+    assert test_review == repo.get_reviews_by_book(test_book)[-1]
 
 
 def test_repository_can_retrieve_reviews(session_factory):
     repo = SqlAlchemyRepository(session_factory)
-
-    assert len(repo.get_reviews()) == 20
+    assert len(repo.get_reviews()) == 1
 
 def test_repository_get_available_years(session_factory):
     repo = SqlAlchemyRepository(session_factory)
-    years = repo.get_available_years()
-    assert years == [2019, 2020, 2021]
+    years = repo.get_available_years() #Should return all available years ignoring NULL types and duplicates
+    assert len(years) == 8
 
 def test_repository_chunks(session_factory):
     repo = SqlAlchemyRepository(session_factory)
     chunks = repo.chunks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 5)
-    assert chunks == [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12]]
+    assert list(chunks) == [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12]]
