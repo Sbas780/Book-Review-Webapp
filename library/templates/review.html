@@ -22,7 +22,7 @@
 in reviews %}
 <div class="ui segments padded">
   <div class="ui inverted segment">
-    <i class="user icon"></i>&ensp;{{ review.user_name
+    <i class="user icon"></i>&ensp;{{ review.user.user_name
     }}&emsp;|&emsp;Rating:&ensp;{% for i in range(review.rating)%}
     <i class="star icon"></i>{% endfor
     %}&emsp;|&emsp;{{review.timestamp.strftime('%m/%d/%Y')}}

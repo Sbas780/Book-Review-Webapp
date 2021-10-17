@@ -137,8 +137,10 @@ class SqlAlchemyRepository(AbstractRepository):
         pass
 
     def get_user(self, user_name) -> User or None:
-
-        return self._session_cm.session.query(User).filter(User._User__user_name == user_name).one()
+        try:
+            return self._session_cm.session.query(User).filter(User._User__user_name == user_name).one()
+        except NoResultFound:
+            return None
 
 
     def get_reviews_by_book(self, book: Book):

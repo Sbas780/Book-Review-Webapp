@@ -268,11 +268,11 @@ class Review:
 
     @property
     def user(self):
-        return self.__user_name
+        return self.__user
 
     @user.setter
     def user(self, user):
-        self.__user_name = user
+        self.___user = user
 
 
 
