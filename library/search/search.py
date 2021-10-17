@@ -14,7 +14,6 @@ search_bp = Blueprint('search_bp', __name__)
 def search(page_number=0):
     form = create_search_fields(repo.repo_instance, request.args)
     add_book_form = AddBookForm()
-    books = utils.get_list_of_books()
     query = request.args.get('search', '')
     authors = request.args.getlist('author')
     publishers = request.args.getlist('publisher')
@@ -32,7 +31,7 @@ def search(page_number=0):
 
     books = search_for_items(repo.repo_instance, query, authors, publishers, years, ebook)
 
-    book_chunks = list(repo.repo_instance.chunks(books, 5))
+    book_chunks = list(utils.get_chunks(books, 15))
 
     page_number = request.args.get("page_number")
     if page_number is None:

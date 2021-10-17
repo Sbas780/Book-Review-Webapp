@@ -53,13 +53,18 @@ def test_repository_add_duplicate_book(session_factory):
     repo.add_book(new_book)
     books = repo.get_books()
 
-    assert books == [Book(1, "Test Book One"), Book(2, "Test Book Two"), Book(3, "Test Book Three")]
+    assert books == [Book(1, "Test Book One"), Book(2, "Test Book Two"), Book(707611, "Superman Archives, Vol. 2"), Book(2168737, "The Thing: Idol of Millions"),
+                     Book(2250580, "A.I. Revolution, Vol. 1"), Book(11827783, "Sherlock Holmes: Year One"), Book(12349663, "Naoki Urasawa's 20th Century Boys, Volume 19 (20th Century Boys, #19)"), Book(12349665, "Naoki Urasawa's 20th Century Boys, Volume 20 (20th Century Boys, #20)"),
+                     Book(13340336, "20th Century Boys, Libro 15: ¡Viva la Expo! (20th Century Boys, #15)"), Book(13571772, "Captain America: Winter Soldier (The Ultimate Graphic Novels Collection: Publication Order, #7)"), Book(17405342, "Seiyuu-ka! 12"), Book(18711343, "續．星守犬"),
+                     Book(18955715, "D.Gray-man, Vol. 16: Blood & Chains"), Book(23272155, "The Breaker New Waves, Vol 11"), Book(25742454, "The Switchblade Mamma"), Book(27036536, "War Stories, Volume 3"),
+                     Book(27036537, "Crossed, Volume 15"), Book(27036538, "Crossed + One Hundred, Volume 2 (Crossed +100 #2)"), Book(27036539, "War Stories, Volume 4"), Book(30128855, "Cruelle"),
+                     Book(30735315, "She Wolf #1"), Book(35452242, "Bounty Hunter 4/3: My Life in Combat from Marine Scout Sniper to MARSOC")]
 
 def test_repository_can_get_book_by_id(session_factory):
     repo = SqlAlchemyRepository(session_factory)
-    book = repo.get_book_by_id(1)
+    book = repo.get_book_by_id(2250580)
 
-    assert book == Book(1, "Test Book One")
+    assert book == Book(2250580, "A.I. Revolution, Vol. 1")
 
 def test_repository_cannot_get_book_by_id(session_factory):
     repo = SqlAlchemyRepository(session_factory)
@@ -96,7 +101,10 @@ def test_repository_can_get_available_authors(session_factory):
 def test_repository_get_publishers(session_factory):
     repo = SqlAlchemyRepository(session_factory)
     publishers = repo.get_publishers()
-    assert publishers == [Publisher("Publisher One"), Publisher("Publisher Two"), Publisher("Publisher Three")]
+    assert publishers == [Publisher("Planeta DeAgostini"), Publisher("N/A"), Publisher("Dargaud"), Publisher("Hachette Partworks Ltd."),
+                          Publisher("DC Comics"), Publisher("Go! Comi"), Publisher("Avatar Press"), Publisher("Dynamite Entertainment"),
+                          Publisher("VIZ Media"), Publisher("Hakusensha"), Publisher("Shi Bao Wen Hua Chu Ban Qi Ye Gu Fen You Xian Gong Si"), Publisher("Marvel")]
+
 
 def test_repository_can_retrieve_book(session_factory):
     repo = SqlAlchemyRepository(session_factory)
