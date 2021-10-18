@@ -30,7 +30,7 @@ def test_database_populate_select_all_users(database_engine):
 
 def test_database_populate_select_all_reviews(database_engine):
     inspector = inspect(database_engine)
-    name_of_comments_table = inspector.get_table_names()[2]
+    name_of_comments_table = inspector.get_table_names()[4]
 
     with database_engine.connect() as connection:
         select_statement = select([metadata.tables[name_of_comments_table]])
@@ -38,13 +38,13 @@ def test_database_populate_select_all_reviews(database_engine):
 
         all_comments = []
         for row in result:
-            all_comments.append((row['id'], row['user_id'], row['book_id'], row['comment']))
+            all_comments.append((row['id'], row['user_id'], row['book_id']))
 
-        assert all_comments == [(1, 4, 1, 'Good book!'), (2, 2, 1, 'It was alright.')]
+        assert all_comments == [(1, 2, 13340336)]
 
 def test_database_populate_select_all_books(database_engine):
     inspector = inspect(database_engine)
-    name_of_articles_table = inspector.get_table_names()[1]
+    name_of_articles_table = inspector.get_table_names()[5]
 
     with database_engine.connect() as connection:
         select_statement = select([metadata.tables[name_of_articles_table]])
@@ -52,11 +52,9 @@ def test_database_populate_select_all_books(database_engine):
 
         all_books = []
         for row in result:
-            all_books.append((row['id'], row['title']))
+            all_books.append(row['title'])
 
         nr_books = len(all_books)
-        assert nr_books == 20
-
-        assert all_books[0] == (1, '20th Century Boys, Libro 15: ¡Viva la Expo! (20th Century Boys, #15)')
+        assert nr_books == 0
 
 

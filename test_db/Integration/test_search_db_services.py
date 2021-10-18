@@ -51,7 +51,7 @@ def test_search_with_publishers(session_factory):
     authors = []
     years = []
     ebook = None
-    publishers = ["Publisher One", "Publisher Two"]
+    publishers = ["Publisher Planeta DeAgostini", "Publisher Dargaud"]
     results = services.search_for_items(repo, query, authors, publishers, years, ebook)
     assert len(results) == 2
 

@@ -9,6 +9,7 @@ from library.domain.model import Publisher, Author, Book, Review, User
 from library.adapters.repository import RepositoryException
 
 
+
 def test_repository_can_add_a_user(session_factory):
     repo = SqlAlchemyRepository(session_factory)
     user = User('ben', 'Password12345')
@@ -154,3 +155,12 @@ def test_repository_chunks(session_factory):
     repo = SqlAlchemyRepository(session_factory)
     chunks = repo.chunks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 5)
     assert list(chunks) == [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12]]
+
+def test_wish_list(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    book = repo.get_book_by_id(27036536)
+    user = repo.get_user("yahiko")
+    assert len(user.read_books) == 0
+    user.read_books.append(book)
+    assert len(user.read_books) == 1
+    assert user.read_books[0] == book

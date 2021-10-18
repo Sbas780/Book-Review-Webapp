@@ -121,7 +121,7 @@ def test_loading_of_reviewed_book(empty_session): # F: REVIEWS CURRENTLY UNDER C
 
     assert review.book is book
 
-def test_saving_of_review(empty_session): # F: REVIEWS CURRENTLY UNDER CONSTRUCTION IN ORM
+def test_saving_of_review(empty_session):
     book_key = insert_book(empty_session)
     user_key = insert_user(empty_session, ("test_user1", "Password1"))
 
