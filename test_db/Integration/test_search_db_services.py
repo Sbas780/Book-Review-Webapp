@@ -17,12 +17,12 @@ def test_search_with_empty_string(session_factory):
 def test_search_with_specific_authors(session_factory):
     repo = SqlAlchemyRepository(session_factory)
     query = ""
-    authors = ["Test Author"]
+    authors = ["Garth Ennis"]
     years = []
     ebook = None
     publishers = []
     results = services.search_for_items(repo, query, authors, publishers, years, ebook)
-    assert len(results) == 1
+    assert len(results) == 2
 
 
 def test_search_with_non_existent_authors(session_factory):
@@ -51,7 +51,7 @@ def test_search_with_publishers(session_factory):
     authors = []
     years = []
     ebook = None
-    publishers = ["Publisher Planeta DeAgostini", "Publisher Dargaud"]
+    publishers = ["Planeta DeAgostini", "Dargaud"]
     results = services.search_for_items(repo, query, authors, publishers, years, ebook)
     assert len(results) == 2
 
@@ -71,11 +71,32 @@ def test_search_with_years(session_factory):
     repo = SqlAlchemyRepository(session_factory)
     query = ""
     authors = []
-    years = [2019, 2020]
+    years = [2012, 1997]
     ebook = None
     publishers = []
     results = services.search_for_items(repo, query, authors, publishers, years, ebook)
-    assert len(results) == 2
+    assert len(results) == 4
+
+def test_search_with_invalid_year(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    query = ""
+    authors = []
+    years = [2021, 2022]
+    ebook = None
+    publishers = []
+    results = services.search_for_items(repo, query, authors, publishers, years, ebook)
+    assert len(results) == 0
+
+
+def test_search_with_mixed_years(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    query = ""
+    authors = []
+    years = [2021, 2016]
+    ebook = None
+    publishers = []
+    results = services.search_for_items(repo, query, authors, publishers, years, ebook)
+    assert len(results) == 5
 
 
 def test_search_for_query(session_factory):
