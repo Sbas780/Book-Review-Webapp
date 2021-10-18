@@ -92,12 +92,12 @@ def test_search_for_query(session_factory):
 def test_search_for_query_and_search_params(session_factory):
     repo = SqlAlchemyRepository(session_factory)
     query = "Two"
-    authors = ["Test AuthorTwo"]
+    authors = ["False Author"]
     years = [2021]
     ebook = None
     publishers = ["Publisher Two"]
     results = services.search_for_items(repo, query, authors, publishers, years, ebook)
-    assert len(results) == 1
+    assert len(results) == 0
 
 def test_search_for_ebook_false(session_factory):
     repo = SqlAlchemyRepository(session_factory)
@@ -107,4 +107,4 @@ def test_search_for_ebook_false(session_factory):
     ebook = "False"
     publishers = []
     results = services.search_for_items(repo, query, authors, publishers, years, ebook)
-    assert len(results) == 1
+    assert len(results) == 16

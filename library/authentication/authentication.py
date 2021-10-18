@@ -26,6 +26,7 @@ def register():
         # Successful POST, i.e. the user name and password have passed validation checking.
         # Use the service layer to attempt to add the new user.
         try:
+
             services.add_user(form.user_name.data, form.password.data, repo.repo_instance)
 
             # All is well, redirect the user to the login page.

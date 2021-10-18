@@ -146,8 +146,6 @@ class SqlAlchemyRepository(AbstractRepository):
         new_list = []
         data = self._session_cm.session.query(Review).all()
         for i in data:
-            print(i)
-            print(i.book.book_id)
             if i.book.book_id == current_book_id:
                 new_list.append(i)
         return new_list

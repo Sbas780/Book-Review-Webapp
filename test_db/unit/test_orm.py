@@ -116,9 +116,10 @@ def test_loading_of_reviewed_book(empty_session): # F: REVIEWS CURRENTLY UNDER C
 
     rows = empty_session.query(Book).all()
     book = rows[0]
+    review_row = empty_session.query(Review).all()
+    review = review_row[0]
 
-    for review in book.reviews:
-        assert review.book is book
+    assert review.book is book
 
 def test_saving_of_review(empty_session): # F: REVIEWS CURRENTLY UNDER CONSTRUCTION IN ORM
     book_key = insert_book(empty_session)
@@ -129,13 +130,14 @@ def test_saving_of_review(empty_session): # F: REVIEWS CURRENTLY UNDER CONSTRUCT
     user = empty_session.query(User).filter(User._User__user_name == "test_user1").one()
 
     review_text = "Some review text."
-    review = Review(book, review_text, 5, user)
+    review = Review(book, review_text, 5)
+    review.user = user
     empty_session.add(review)
     empty_session.commit()
 
-    rows = list(empty_session.execute('SELECT user_id, book_id FROM reviews'))
+    rows = list(empty_session.execute('SELECT id, book_id FROM reviews'))
 
-    assert rows == [(user_key, book_key)]
+    assert rows == [(1, book_key)]
 
 def test_saving_of_book(empty_session):
     book = make_book() # Book(123, "My Test Book Title")
